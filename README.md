@@ -1,10 +1,10 @@
 # Potential Project
 
-## Topic: want to design a map that  _____
+## Topic: 
 I want to design a map that explores historic parcel ownership/purchases of the University of Kentucky on the Lexington main campus. 
-## Question: because I want to find out what/why/how _______, 
+## Question: 
 I want to identify when the University of Kentucky purchased specific parcels on main campus, from who (person, organization, etc.), and the original size. 
-## Significance: in order to help the user understand ________.
+## Significance: 
 I want to design an interactive map that will allow users to easily search and view University of Kentucky owned parcels. There is not a single location for this data. Finding additional information requires digging through deed books and various documents. More recent parcel data can be obtained from the LFUCG PVA; but older sections of campus have been merged into large parcels, instead of the original parcel size they were purchased at. Some historic data is currently in a CAD DWG, which would need to be geospatially referenced and digitized. Another pressing need is that the CAD document is maintained by a single person. With many folks retiring, it is important that a resource is available before the 'keeper' of this data retires.
 
 ---
