@@ -5,13 +5,19 @@ I want to design a map that explores historic parcel ownership/purchases of the 
 ## Question: because I want to find out what/why/how _______, 
 I want to identify when the University of Kentucky purchased specific parcels on main campus, from who (person, organization, etc.), and the original size. 
 ## Significance: in order to help the user understand ________.
-I want to design an interactive map that will allow users to easily search and view University of Kentucky owned parcels. There is not a single location for this data. More recent parcel data can be obtained from the LFUCG PVA; but older sections of campus have been merged into large parcels, instead of the original parcel size they were purchased at. Some historic data is currently in a CAD DWG, which would need to be digitized. However the CAD file only has the date and deed book number. Finding additional information requires digging through deeds and various documents. Another pressing need is that the CAD document is maintained by a single person. With many folks retiring, it is important that a resource is available before the 'keeper' of this data retires.
+I want to design an interactive map that will allow users to easily search and view University of Kentucky owned parcels. There is not a single location for this data. Finding additional information requires digging through deed books and various documents. More recent parcel data can be obtained from the LFUCG PVA; but older sections of campus have been merged into large parcels, instead of the original parcel size they were purchased at. Some historic data is currently in a CAD DWG, which would need to be geospatially referenced and digitized. Another pressing need is that the CAD document is maintained by a single person. With many folks retiring, it is important that a resource is available before the 'keeper' of this data retires.
 
 ---
 ## Nascent project topic ideas and datasets discussion
 **UKY Parcel Ownership Transfer** - In my current position with ITS Information Services, I work closely with UK Facilities Management and their datasets. Our department has identified a need for historic parcel/plat data to be digitized and made available in an easy to use map environment. This is something our department has wanted to complete for a while, but have not been able to get funding to support the development. More recent parcel data can be obtained from the LFUCG PVA; but older sections of campus have been merged into large parcels, instead of the original parcel size they were purchased at. Historic data is currently in a CAD DWG, which would need to be digitized. This document is maintained by a single person. With many folks retiring, it is important that a resource is available before the 'keeper' of this data retires.
-- Parcel Data - LFUCG PVA 
-- Historic Data - UK Facilities Library 
+- Current UK Parcel Data - LFUCG PVA 
+- Historic UK Parcel Data - UK Facilities Library 
+- UK Ownership Boundary - UK ITS Information Services
+- UK Basemap Features - UK ITS Information Services
+  
+  **Important notes**
+  - Data will need to be somewhat secured and have limited access. 
+  - Attribute Fields: Deedbook Number, Page Number, Date of Purchase, Purchased From, Plat/Lot Number, Original Street Address Number, Dimensions, Acreage, Source, Link
 
 ---
 ## Other Possible Projects
