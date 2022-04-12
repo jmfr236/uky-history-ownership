@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>UK Campus Expansion through the Decades</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+		integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+	<!-- Leaflet CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+		integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+		crossorigin="" />
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Catamaran:600|Merriweather+Sans:300" rel="stylesheet">
+	
+	<style>
+		body {
+			background: #20282e;
+			font-family: 'Merriweather Sans', Sans-Serif;
+		}
+
+		header {
+			background-image: linear-gradient(to left,#0033A0,#1B365D)
+		}
+
+		h1 {
+			Font-Family: 'Catamaran', Sans-Serif;
+			font-weight: 800;
+		}
+
+		h2 {
+			Font-Family: 'Catamaran', Sans-Serif;
+			font-style: oblique;
+		}
+
+		h3 {
+			Font-Family: 'Merriweather Sans', Sans-Serif;
+			font-size: .6em;
+			font-style: italic 
+		}
+
+		p {
+			Font-Family: 'Merriweather Sans', Sans-Serif;
+			line-height: 1.4rem;
+			font-size: .8em;
+		}
+
+		a {
+			color: #FFDC00;
+		}
+
+		a:hover {
+			color: #FFA360;
+		}
+
+		label {
+			font-size: 1.1em;
+		}
+
+		li {
+			font-size: .8em;
+			text-align: right;
+		}	
+
+		footer {
+			Font-Family: 'Merriweather Sans', Sans-Serif;
+			line-height: 1.4rem;
+			background-image: linear-gradient(to left,#0033A0,#1B365D)
+		}
+
+		#about {
+			background-color: #f8f8f4;
+		}
+
+		#map {
+			height: 80vh;
+			background: #20282e;
+		}
+
+		#ui-menu {
+			position: absolute;
+			z-index: 10000;
+			right: 1em;
+			top: 1em;
+		}
+
+		#ui-controls {
+			width: 176px;
+			padding: 8px 25px 8px 15px;
+			background: rgba(75, 75, 75, 0.8);
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+			color: whitesmoke;
+		}
+
+		#ui-controls .min {
+			float: left;
+		}
+
+		#ui-controls .max {
+			float: right;
+			margin-right: -15px;
+		}
+
+		#year {
+			width: 135px;
+			padding: 8px 8px 8px 8px;
+			background:#1B365D;
+			opacity: .75;
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+			color: whitesmoke;
+		}
+
+		.year-slider {
+			width: 100%;
+		}
+
+		.leaflet-tooltip-left:before {
+			right: 0;
+			margin-right: -12px;
+			border-left-color: rgba(0, 0, 0, 0.4);
+		}
+
+		.leaflet-tooltip-right:before {
+			left: 0;
+			margin-left: -12px;
+			border-right-color: rgba(0, 0, 0, 0.4);
+			}
+
+		.leaflet-tooltip-own {
+			position: absolute;
+			padding: 5px;
+			background-color: rgba(0, 0, 0, 0.4);
+			border: 0px solid #000;
+			color: #000;
+			white-space: nowrap;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			pointer-events: none;
+			box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+		}
+
+		.leaflet-tooltip img {
+			max-width: 200px;
+			max-height: 200px;
+			border-radius: 10%;
+		}
+
+		/* Small devices (landscape phones, 576px and up) */
+		@media (min-width: 576px) {}
+
+		/* Medium devices (tablets, 768px and up) */
+		@media (min-width: 768px) {
+
+			aside {
+				height: 80vh;
+			}
+		}
+
+		/* Large devices (desktops, 992px and up) */
+		@media (min-width: 992px) {}
+
+		/* Extra large devices (large desktops, 1200px and up) */
+		@media (min-width: 1200px) {}
+	</style>
+
+</head>
+
+<body>
+	<div class="container-fluid">
+		<!--<header class="row text-white py-3">
+			<div class="col">
+				<h1>Campus Expansion through the Decades</h1>
+			</div>
+		</header> -->
+
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">History of Campus Expansion</br>
+				<p class="font-weight-bold">University of Kentucky</p></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+		  
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			  <ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+				  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="#">Link</a>
+				</li>
+				<li class="nav-item dropdown">
+				  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Dropdown
+				  </a>
+				  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="#">Action</a>
+					<a class="dropdown-item" href="#">Another action</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Something else here</a>
+				  </div>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link disabled" href="#">Disabled</a>
+				</li>
+			  </ul>
+			  <form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			  </form>
+			</div>
+		  </nav>
+
+		<section class="row">
+			<div class="col-md-12 col-lg-12 col-xl-12 order-md-2 px-0">
+				<div id='map'>
+					<!-- ui dropdown menu-->
+				<div id="ui-menu" class="dropdown">
+					<a class="btn btn-light text-secondary font-weight-bold dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						All Building Types
+					</a>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<!-- <a id="athletics" class="dropdown-item" href="#">Athletics</a>
+						<a id="campus" class="dropdown-item" href="#">Campus</a>
+						<a id="greek" class="dropdown-item" href="#">Greek Life</a>
+						<a id="housing" class="dropdown-item" href="#">Housing</a>
+						<a id="medical" class="dropdown-item" href="#">Medical</a>
+						<a id="other" class="dropdown-item" href="#">Other</a>
+						<a id="transportation" class="dropdown-item" href="#">Transportation</a> -->
+					</div>
+				</div>
+				<!-- ui slider element -->
+				<div id="ui-controls" class="bg-light text-secondary font-weight-bold">
+					<label><span class="min">1860</span>
+						<span class="max">2022</span>
+						<input type="range" min="1860", max="2022",
+						value="2022", step="10" class="year-slider" ></input>
+					</label>  
+				</div>
+				<!-- ui construction year date and property legend -->
+				<div id='year' class="text-light font-weight-bold">
+					<label><img src="graphics/dashed-line.png" width="20px" height="20px"> UK Property</br>
+					</br>
+						Year Display: <span>2022</span></label>
+				</div>
+				</div>
+			</div>
+			<!-- <aside id="about"
+				class="col-md-3 col-lg-3 col-xl-3 order-md-1 text-dark py-2 pl-3 overflow-auto">
+				<section>
+					<h2 class="py-2">University of Kentucky Building History (1865-2020)</h2>
+					<p>Travel back through time and get a glimpse of the University of Kentucky (UK) campus. 
+						Use this map to	explore building construction, acquisition, and historical 
+						trends in usage and campus planning. This map lays out the building history 
+						on UK Campus as it exists today, with only existing structures (buildings that
+						have been demolished are not shown). 
+					<p>UK was first established as a land-grant	institution in 1865. It wasn't until 1880 
+						that UK started development at its current location off of South Limestone in 
+						Lexington, Kentucky. The campus initially comprised of three buildings, only one 
+						of which still remains - UK Main Building (1882).</br>
+					<p></p>
+					<a href="https://exploreuk.uky.edu/fa/findingaid/?id=xt7f4q7qpg4w">
+						<img src="https://exploreuk.uky.edu/dips/xt7f4q7qpg4w/data/2001ua068/2001ua068_1/2001ua068_1_13_p/2001ua068_01_013/2001ua068_01_013.jpg" 
+						alt="Main Administration Building" class="col-md-12 "></a>
+					<h3 class="col-md-12 ">Photo of Main Administration Building. Provided by exploreUK, 
+						clicking the image will take you to a collection of UK postcards. </h3>
+					<p>After scrolling through the time slider you will notice there are several buildings 
+						that were constructed in earlier years, and later acquired by the University as campus 
+						expanded. The oldest structure on campus is actually 206 E Maxwell St. - built in 1853
+						and acquired by the University in 1994. By selecting from the dropdown options, you can
+						also filter and examine key trends based on buildings usage type (housing, medical, 
+						campus, etc.).</br>
+					</p>-->
+				</section>
+			</aside>
+		</section>
+
+		<footer class="row text-white py-3">
+			<div class="col">
+				<ul class="list-unstyled">
+					<h3 align="right">This product is not affiliated or sponsored by the University of Kentucky</h3>
+					<li>Authored by <a href="https://jmfr236.github.io/">Jessica Freeman</a>, December 2020</li>
+					<li>Building Data Source: University of Kentucky <a href="https://www.uky.edu/gissupport/data">ITS Information Services Department</a></li>
+					<li>Historic Reference Source: University of Kentucky <a href="https://www.uky.edu/uk150/history">History - UK150</a></li>
+				</ul>
+			</div>
+		</footer>
+	</div>
+
+	<!-- jQuery first and the minified version from jQuery site, not the slim minified version from Bootstrap's site. -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+	<!-- then Popper JS -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<!-- then Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+		integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+		crossorigin="anonymous"></script>
+	<!-- then Leaflet JS -->
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+		crossorigin=""></script>
+	<!-- then jQuery slider -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://d3js.org/d3.v6.min.js"></script>
+	<script>
+	
+	// map options
+	const options = {
+		zoomSnap: .1,
+		center: [38.027, -84.504], //centered on University of Kentucky campus
+		zoom: 14.5,
+		minZoom: 12,
+		maxZoom: 18,
+		maxBounds: L.latLngBounds([38.066, -84.547], [37.996, -84.454])
+	};
+
+	// create the Leaflet map
+	const map = L.map('map', options);
+
+	// mapbox API access Token
+	// mapbox API parameters
+	const accessToken = `pk.eyJ1Ijoiam1mcjIzNiIsImEiOiJja3c0Yzg5MWw4dHdvMzFzMXI2bGw0Z28wIn0.h1s6bozXOvBTStSlxGe0LA`
+	const yourName = 'jmfr236'
+	const yourMap = 'ckw4ellrb0dy714o11r7tg1wt'
+
+  	// request a mapbox raster tile layer and add to map
+	L.tileLayer(`https://api.mapbox.com/styles/v1/${yourName}/${yourMap}/tiles/256/{z}/{x}/{y}?access_token=${accessToken}`, {
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		maxZoom: 18
+	}).addTo(map);
+	
+	// global variables
+	const currentYear = 2020;
+
+	//add UK property boundary layer using JQuery getJSON() method
+	$.getJSON("data/UK_Parcel_Acquisition_WebMer1.geojson", function (data) {
+		const property = L.geoJson(data, {
+			style: function (feature) {
+				return {
+					color: 'black',
+					weight: 1,
+					dashArray: '2',
+					fillColor: 'none',
+				};
+			},
+		}).addTo(map);
+	});
+
+	// add UK buildings layer using JQuery getJSON() method
+	$.getJSON("data/UK_Parcel_Acquisition_WebMer1.geojson", function (buildings) {
+		console.log(buildings);
+
+		//call drawMap() function
+		drawMap(buildings); 
+	});
+	
+	// draw building geoJson layer, call createSliderUI() and updateMap() functions
+	function drawMap(buildings) {
+		console.log(buildings);
+		
+		// set building layer style and add to map
+		const dataLayer = L.geoJson(buildings, {
+			style: function (feature) {
+				return {
+				color: '#20282e',
+				weight: 1,
+				fillOpacity: .75,
+				fillColor: "#1f78b4",
+				};
+			},
+		}).addTo(map); 
+
+	/* selection menu - will work on if time allows - struggle with UI slider and dropdown so thought 
+	doing a selection menu might be simpler
+		const athleticLayer = L.geoJson(buildings, dataLayer).addTo(map);
+		const campusLayer = L.geoJson(buildings, dataLayer).addTo(map);
+		const greekLayer = L.geoJson(buildings, dataLayer).addTo(map);
+		const housingLayer = L.geoJson(buildings, dataLayer).addTo(map);
+		const medicalLayer = L.geoJson(buildings, dataLayer).addTo(map);
+		const otherLayer = L.geoJson(buildings, dataLayer).addTo(map);
+		const transportationLayer = L.geoJson(buildings, dataLayer).addTo(map);
+		var buildingLayers = {
+			"<span class='layer=title'>Athletics</span>": athleticLayer,
+			"<span class='layer=title'>Campus</span>": campusLayer,
+			"<span class='layer=title'>Greek Life</span>": greekLayer,
+			"<span class='layer=title'>Housing</span>": housingLayer,
+			"<span class='layer=title'>Medical</span>": medicalLayer,
+			"<span class='layer=title'>Other</span>": otherLayer,
+			"<span class='layer=title'>Transportation</span>": transportationLayer,
+		}
+		var layerSelection = L.control.layers(null, buildingLayers, {
+			collapsed: false
+		}).addTo(map);
+*/
+		// create slider - call createSliderUI() function
+		createSliderUI(dataLayer);
+		// filterByAttribute(dataLayer, buildings);
+
+		// call updateMap() function 
+		updateMap(dataLayer, currentYear);
+
+		// call updateYear() function when slider changed
+		updateYear(dataLayer, currentYear);
+
+		filterByAttribute(dataLayer);
+    }
+
+    function updateMap(dataLayer, currentYear) {
+    	// loop through each county layer to update the color 
+		dataLayer.eachLayer(function (layer) {
+
+			const props = layer.feature.properties;
+			currentYear = Number(currentYear); 
+			yearBuilt = Number(props["UK_Build_3"]);
+			// console.log(currentYear)
+
+			if (yearBuilt <= currentYear) {
+				
+				layer.setStyle({
+						opacity: 1,
+						fillOpacity: 1
+					})
+
+						layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" + 
+					`<p align="center"><label><b><u>${props['GIS_MAPB_2']}  (#${props['BuildingID']})</u></b><br/>
+						${props['GIS_MAPB_4']}, Lexington, KY ${props['GIS_MAPB_5']}<br/>
+						<b>Usage Area:</b> ${props['GIS_MAPB_9']}<br/>
+						<b>Constructed:</b> ${props['UK_Build_3']}<br/>
+						<b>Acquired:</b> ${props['UK_Build_4']}</br>
+						<img class="col-md-12" src="https://maps.uky.edu/campusmap/bldg/${props['BuildingID']}.jpg"></label></p>` + "</div>",
+				{
+					direction: 'right',
+					permanent: false,
+					sticky: true,
+					offset: [10, 0],
+					align: 'center',
+					opacity: 1,
+					className: 'leaflet-tooltip-own' 
+				});
+
+				layer.on("mouseover", function () {
+							layer.bringToFront();
+							layer.setStyle({
+								color: "yellow",
+								weight: 2,
+								opacity: 1,
+								fillOpacity: 1
+							});
+						});
+
+				layer.on("mouseout", function () {
+							layer.bringToBack();
+							layer.setStyle({
+								color: '#20282e',
+								weight: 1,
+								fillOpacity: 1,
+								fillColor: "#1f78b4",
+								opacity: 1
+							});
+						});
+				} else {
+					layer.setStyle({
+						opacity: 0,
+						fillOpacity: 0
+					})
+
+					layer.unbindTooltip()
+
+					layer.on("mouseover", function(){
+						layer.setStyle({
+						opacity: 0,
+						fillOpacity: 0
+						})
+					})
+
+					layer.on("mouseout", function(){
+						layer.setStyle({
+						opacity: 0,
+						fillOpacity: 0
+						})
+					})
+				}
+			})
+	}; // end updateMap()
+
+	// Add slider to the map
+	function createSliderUI(dataLayer) {
+      // create Leaflet control for the slider
+		const sliderControl = L.control({ 
+			position: 'bottomleft'
+		});
+
+      // when added to the map
+		sliderControl.onAdd = function(map) {
+
+			// select an existing DOM element with an id of "ui-controls"
+			const slider = L.DomUtil.get("ui-controls");
+
+			// disable scrolling of map while using controls
+			L.DomEvent.disableScrollPropagation(slider);
+
+			// disable click events while using controls
+			L.DomEvent.disableClickPropagation(slider);
+
+			// return the slider from the onAdd method
+			return slider;
+		}
+
+    	// add the control to the map
+		sliderControl.addTo(map);
+	} // end createSliderUI()
+	
+	// add legend and year display showing the year selected
+	function updateYear(dataLayer, currentYear) {
+		// create leaflet control for year and legend display
+		var yearControl = L.control({
+			position: 'bottomleft'
+		});
+
+		//When added to the map
+		yearControl.onAdd = function (map) {
+
+			// select an existing DOM element with an id of "year"
+			var controls = L.DomUtil.get("year");
+
+			// disable scrolling of map while using controls
+			L.DomEvent.disableScrollPropagation(controls);
+
+			// disable click events while using controls
+			L.DomEvent.disableClickPropagation(controls);
+
+			// return the legend and year display from the onAdd method
+			return controls;
+
+		}
+
+		// add the control to the map
+		yearControl.addTo(map); 
+
+      // select the form element
+		$(".year-slider")
+        	.on("input change", function() { // when user changes
+				const currentYear = $(this).val(); // update the year
+				$('#year label span').html(currentYear); // update the map with current timestamp
+				updateMap(dataLayer, currentYear); // update timestamp in legend heading
+			});
+	} // end updateYear()
+
+	function filterByAttribute(dataLayer) {
+		// array to hold select options
+
+		// dataLayer.getLayers()
+		var uniqueTypes = [];
+		
+		// loop through all features and push unique types to array
+		dataLayer.eachLayer(function (maint) {
+			const props = maint.feature.properties
+			if (!uniqueTypes.includes(props.GIS_MAPB_9)) {
+				uniqueTypes.push(props.GIS_MAPB_9);
+			}
+		});
+
+		// sort strings alphabetically
+		uniqueTypes.sort();
+
+		// add an all facilities to the beginning
+		uniqueTypes.unshift('All Building Types');
+		// console.log(maint.GIS_MAPB_9)
+
+		// select all the options (that don't exist yet)
+		d3.select('#ui-menu .dropdown-menu').selectAll('a')
+		.data(uniqueTypes) // use array as data
+		.join('a') // append a new option element for each data item
+		.text(d => {
+			return d // use the item as text
+		})
+		.attr('value', d => {
+			return d // use the time as value attribute
+		})
+		.attr('href', '#')
+		.classed('dropdown-item', true)
+		.on('click', onchange);  // when the user clicks call onchange function
+
+		function onchange() {
+			// get the currently selected value
+			let val = d3.select(this).attr('value');
+
+			dataLayer.eachLayer(function (maint) {
+				const props = maint.feature.properties
+				if (val != props.GIS_MAPB_9) {
+					maint.setStyle({
+						stroke: false,
+						fill: false
+					})
+
+				} else {
+					maint.setStyle({
+						stroke: true,
+						fill: true
+					})
+				}
+
+				if (val == 'All Building Types' ) { 
+
+				maint.setStyle({
+					stroke: true,
+					fill: true
+					});
+				}
+
+
+			d3.select('#ui-menu > a').html(val);  // update the UI with current val
+		
+		// change the display property for each circle
+		// dataLayer.style('display', d => {
+		// if (val === 'All Building Types') return 'inline';
+		// if (d.GIS_MAPB_9 != val) return 'none';
+		// });
+		// d3.select('#ui-menu > a').html(val);  // update the UI with current val
+		})
+	}
+	}
+	
+/*
+		const buildingLayer = $.getJSON("data/UK_Building_Facility.json", function (data) {
+			// jQuery method uses AJAX request for the GeoJSON data
+			
+			const buildingLayer = L.geoJson(data, {
+  				// style counties with initial default path options
+			style: function (feature) {
+					return {
+						color: '#20282e',
+						weight: 2,
+						fillOpacity: 1,
+						fillColor: '#1f78b4'
+					};
+				},
+  				// add hover/touch functionality to each feature layer
+				onEachFeature: function (feature, layer) {
+    				// when mousing over a layer
+					layer.on('mouseover', function () {
+      					// change the stroke color and bring that element to the front
+						layer.setStyle({
+							color: '#ff6e00'
+						}).bringToFront();
+					});
+    				// on mousing off layer
+					layer.on('mouseout', function () {
+      					// reset the layer style to its original stroke color
+						layer.setStyle({
+							color: '#20282e'
+						});
+					});
+				},
+			}).addTo(map);
+			// call addUi function
+			addUi(buildings); // add the UI controls
+			// call updateMap function
+			updateMap(buildings); // draw the map*/
+
+			// call draw map function and send data as parameter
+			//drawMap(data);
+		//});
+
+		/*
+		function drawMap(data) {
+			console.log(data); // data os now accessible here
+		}
+	
+		/*function updateMap(counties) {
+  			// you could log counties to console here to 
+  			// verify the Leaflet layers object is not accessible
+  			// and scoped within this function
+			console.log(counties);
+			// get the class breaks for the current data attribute
+			const breaks = getClassBreaks(counties);
+			// loop through each county layer to update the color and tooltip info
+			counties.eachLayer(function (layer) {
+				const props = layer.feature.properties;
+				// set the fill color of layer based on its normalized data value
+				layer.setStyle({
+					fillColor: getColor(props[attributeValue] /
+						props[normValue], breaks)
+				});
+				// assemble string sequence of info for tooltip (end line break with + operator)
+				let tooltipInfo = `<b>${props["NAME"]} County</b></br>
+					${((props[attributeValue] / props[normValue]) * 100).toLocaleString()}%`
+  				// bind a tooltip to layer with county-specific information
+				layer.bindTooltip(tooltipInfo, {
+					// sticky property so tooltip follows the mouse
+				sticky: true
+				});
+			});
+			// add legend to map
+			addLegend(breaks)
+			// update the legend with the current data attribute information
+			updateLegend(breaks);
+		}
+		function addUi(counties) {
+			console.log(counties)
+			// create the slider control
+			var selectControl = L.control({ position: "topright" });
+			
+			// when control is added
+			selectControl.onAdd = function() {
+				// get the element with id attribute of ui-controls
+				return L.DomUtil.get("dropdown-ui");
+			};
+			
+			// add the control to the map
+			selectControl.addTo(map);
+			$('#dropdown-ui select').change(function() {
+			// code executed here when change event occurs
+			//console.log(this.value);
+			//Update attributeValue to value user has selected
+			attributeValue = this.value;
+			//call updateMap function
+			updateMap(counties);
+			});
+		}
+*/
+	</script>
+</body>
+
+</html>

@@ -80,6 +80,8 @@ UI for the interactive property ownership map will include:
 
 ![Interactive Parcel Ownership Map](images/parcelownership_wireframe.jpg)
 
+https://www.re.photos/en/ 
+I kind of prefer the idea of a transparency opposed to a slide bar opposed to a slider, but transparency may make the imperfections more noticable? 
 
 
 # III. Conclusion
