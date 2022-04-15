@@ -61,14 +61,15 @@
 
 
 		li {
-			font-size: .8em;
+			font-size: .75em;
 			text-align: right;
 		}	
 
 		footer {
 			Font-Family: 'Merriweather Sans', Sans-Serif;
-			line-height: 1.4rem;
-			background-image: linear-gradient(to left,#0033A0,#1B365D)
+			line-height: .25rem;
+			height: 2.25em;
+			background-image: linear-gradient(to left,#0033A0,#1B365D);
 		}
 
 		#about {
@@ -76,7 +77,7 @@
 		}
 
 		#map {
-			height: 80vh;
+			height: 96vh;
 			background: #20282e;
 		}
 
@@ -180,7 +181,7 @@
 			</div>
 		</header> -->
 
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark py-0">
 			<a class="navbar-brand" href="#">History of Campus Expansion</br>
 				<p class="font-weight-bold">University of Kentucky</p></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -221,12 +222,12 @@
 			<div class="col-md-12 col-lg-12 col-xl-12 order-md-2 px-0">
 				<div id='map'>
 					<!-- ui dropdown menu-->
-				<div id="ui-menu" class="dropdown">
+				<!--<div id="ui-menu" class="dropdown">
 					<a class="btn btn-light text-secondary font-weight-bold dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						All Building Types
 					</a>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">-->
 						<!-- <a id="athletics" class="dropdown-item" href="#">Athletics</a>
 						<a id="campus" class="dropdown-item" href="#">Campus</a>
 						<a id="greek" class="dropdown-item" href="#">Greek Life</a>
@@ -282,13 +283,11 @@
 			</aside>
 		</section>
 
-		<footer class="row text-white py-3">
+		<footer class="text-white">
 			<div class="col">
-				<ul class="list-unstyled">
+				<ul class="list-unstyled"> </br>
 					<h3 align="right">This product is not affiliated or sponsored by the University of Kentucky</h3>
-					<li>Authored by <a href="https://jmfr236.github.io/">Jessica Freeman</a>, June 2022</li>
-					<li>Building Data Source: University of Kentucky <a href="https://www.uky.edu/gissupport/data">ITS Information Services Department</a></li>
-					<li>Historic Reference Source: University of Kentucky <a href="https://www.uky.edu/uk150/history">History - UK150</a></li>
+					<h3 align="right">Authored by <a href="https://jmfr236.github.io/">Jessica Freeman</a>, June 2022</li>
 				</ul>
 			</div>
 		</footer>
@@ -347,7 +346,7 @@
 		const property = L.geoJson(data, {
 			style: function (feature) {
 				return {
-					color: 'black',
+					color: '',
 					weight: 1,
 					dashArray: '2',
 					fillColor: 'none',
@@ -374,7 +373,7 @@
 				return {
 				color: '#20282e',
 				weight: 1,
-				fillOpacity: .75,
+				fillOpacity: 0.2,
 				fillColor: "#1f78b4",
 				};
 			},
@@ -463,10 +462,8 @@
 							layer.bringToBack();
 							layer.setStyle({
 								color: '#20282e',
-								weight: 1,
-								fillOpacity: 1,
+								weight: 1,								
 								fillColor: "#1f78b4",
-								opacity: 1
 							});
 						});
 				} else {
