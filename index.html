@@ -247,7 +247,7 @@
 				</div>
 				<!-- ui construction year date and property legend -->
 				<div id='year' class="text-light font-weight-bold">
-					<label><img src="graphics/dashed-line.png" width="20px" height="20px"> UK Property</br>
+					<!-- <label><img src="graphics/dashed-line.png" width="20px" height="20px"> UK Property</br>-->
 					</br>
 						Year Display: <span>2022</span></label>
 				</div>
@@ -346,7 +346,7 @@
 		const property = L.geoJson(data, {
 			style: function (feature) {
 				return {
-					color: '',
+					color: 'black',
 					weight: 1,
 					dashArray: '2',
 					fillColor: 'none',
@@ -358,8 +358,8 @@
 	// add UK buildings layer using JQuery getJSON() method
 	$.getJSON("data/UK_Parcel_Acquisition_WebMer2.geojson", function (buildings) {
 		console.log(buildings);
-
-		//call drawMap() function
+	
+		// call drawMap() function
 		drawMap(buildings); 
 	});
 	
@@ -373,7 +373,7 @@
 				return {
 				color: '#20282e',
 				weight: 1,
-				fillOpacity: 0.2,
+				fillOpacity: 0.75,
 				fillColor: "#1f78b4",
 				};
 			},
@@ -462,8 +462,10 @@
 							layer.bringToBack();
 							layer.setStyle({
 								color: '#20282e',
-								weight: 1,								
+								weight: 1,	
+								fillOpacity: 1,							
 								fillColor: "#1f78b4",
+								opacity: 1
 							});
 						});
 				} else {
