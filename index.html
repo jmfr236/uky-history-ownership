@@ -353,8 +353,22 @@
 		}).addTo(map);
 	});
 
+	//add UK property boundary layer using JQuery getJSON() method
+	$.getJSON("data/photo_locations.geojson", function (poi) {
+		const property = L.geoJson(poi, {
+			style: function (feature) {
+				return {
+					color: 'black',
+					weight: 1,
+					dashArray: '2',
+					fillColor: 'none',
+				};
+			},
+		}).addTo(map);
+	});
+
 	// add UK buildings layer using JQuery getJSON() method
-	$.getJSON("data/UK_Parcel_Acquisition_WebMer2.geojson", function (buildings) {
+	$.getJSON("data/UK_Parcel_Acquisition_WebMer.geojson", function (buildings) {
 		console.log(buildings);
 	
 		// call drawMap() function
