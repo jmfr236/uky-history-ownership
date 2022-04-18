@@ -194,26 +194,24 @@
 				  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-				  <a class="nav-link" href="#">Link</a>
+				  <a class="nav-link" href="https://github.com/jmfr236/uky-history-ownership/blob/main/README.md">About</a>
 				</li>
 				<li class="nav-item dropdown">
 				  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Dropdown
+					Select Features
 				  </a>
 				  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="#">Action</a>
-					<a class="dropdown-item" href="#">Another action</a>
+					<a class="dropdown-item" href="#">Point of Interest</a>
+					<a class="dropdown-item" href="#">Buildings</a>
+					<a class="dropdown-item" href="#">Parcels</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Something else here</a>
+					<a class="dropdown-item" href="#">All Features</a>
 				  </div>
-				</li>
-				<li class="nav-item">
-				  <a class="nav-link disabled" href="#">Disabled</a>
 				</li>
 			  </ul>
 			  <form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				<input class="form-control form-control-sm mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-secondary btn-sm my-2 my-sm-0" type="submit">Search</button>
 			  </form>
 			</div>
 		  </nav>
@@ -631,104 +629,6 @@
 	}
 	}
 	
-/*
-		const buildingLayer = $.getJSON("data/UK_Building_Facility.json", function (data) {
-			// jQuery method uses AJAX request for the GeoJSON data
-			
-			const buildingLayer = L.geoJson(data, {
-  				// style counties with initial default path options
-			style: function (feature) {
-					return {
-						color: '#20282e',
-						weight: 2,
-						fillOpacity: 1,
-						fillColor: '#1f78b4'
-					};
-				},
-  				// add hover/touch functionality to each feature layer
-				onEachFeature: function (feature, layer) {
-    				// when mousing over a layer
-					layer.on('mouseover', function () {
-      					// change the stroke color and bring that element to the front
-						layer.setStyle({
-							color: '#ff6e00'
-						}).bringToFront();
-					});
-    				// on mousing off layer
-					layer.on('mouseout', function () {
-      					// reset the layer style to its original stroke color
-						layer.setStyle({
-							color: '#20282e'
-						});
-					});
-				},
-			}).addTo(map);
-			// call addUi function
-			addUi(buildings); // add the UI controls
-			// call updateMap function
-			updateMap(buildings); // draw the map*/
-
-			// call draw map function and send data as parameter
-			//drawMap(data);
-		//});
-
-		/*
-		function drawMap(data) {
-			console.log(data); // data os now accessible here
-		}
-	
-		/*function updateMap(counties) {
-  			// you could log counties to console here to 
-  			// verify the Leaflet layers object is not accessible
-  			// and scoped within this function
-			console.log(counties);
-			// get the class breaks for the current data attribute
-			const breaks = getClassBreaks(counties);
-			// loop through each county layer to update the color and tooltip info
-			counties.eachLayer(function (layer) {
-				const props = layer.feature.properties;
-				// set the fill color of layer based on its normalized data value
-				layer.setStyle({
-					fillColor: getColor(props[attributeValue] /
-						props[normValue], breaks)
-				});
-				// assemble string sequence of info for tooltip (end line break with + operator)
-				let tooltipInfo = `<b>${props["NAME"]} County</b></br>
-					${((props[attributeValue] / props[normValue]) * 100).toLocaleString()}%`
-  				// bind a tooltip to layer with county-specific information
-				layer.bindTooltip(tooltipInfo, {
-					// sticky property so tooltip follows the mouse
-				sticky: true
-				});
-			});
-			// add legend to map
-			addLegend(breaks)
-			// update the legend with the current data attribute information
-			updateLegend(breaks);
-		}
-		function addUi(counties) {
-			console.log(counties)
-			// create the slider control
-			var selectControl = L.control({ position: "topright" });
-			
-			// when control is added
-			selectControl.onAdd = function() {
-				// get the element with id attribute of ui-controls
-				return L.DomUtil.get("dropdown-ui");
-			};
-			
-			// add the control to the map
-			selectControl.addTo(map);
-			$('#dropdown-ui select').change(function() {
-			// code executed here when change event occurs
-			//console.log(this.value);
-			//Update attributeValue to value user has selected
-			attributeValue = this.value;
-			//call updateMap function
-			updateMap(counties);
-			});
-		}
-*/
 	</script>
 </body>
 
