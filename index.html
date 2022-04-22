@@ -175,12 +175,6 @@
 
 <body>
 	<div class="container-fluid">
-		<!--<header class="row text-white py-3">
-			<div class="col">
-				<h1>Campus Expansion through the Decades</h1>
-			</div>
-		</header> -->
-
 		<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark py-0">
 			<a class="navbar-brand" href="#">History of Campus Expansion</br>
 				<p class="font-weight-bold">University of Kentucky</p></a>
@@ -251,32 +245,6 @@
 				</div>
 				</div>
 			</div>
-			<!-- <aside id="about"
-				class="col-md-3 col-lg-3 col-xl-3 order-md-1 text-dark py-2 pl-3 overflow-auto">
-				<section>
-					<h2 class="py-2">University of Kentucky Building History (1865-2020)</h2>
-					<p>Travel back through time and get a glimpse of the University of Kentucky (UK) campus. 
-						Use this map to	explore building construction, acquisition, and historical 
-						trends in usage and campus planning. This map lays out the building history 
-						on UK Campus as it exists today, with only existing structures (buildings that
-						have been demolished are not shown). 
-					<p>UK was first established as a land-grant	institution in 1865. It wasn't until 1880 
-						that UK started development at its current location off of South Limestone in 
-						Lexington, Kentucky. The campus initially comprised of three buildings, only one 
-						of which still remains - UK Main Building (1882).</br>
-					<p></p>
-					<a href="https://exploreuk.uky.edu/fa/findingaid/?id=xt7f4q7qpg4w">
-						<img src="https://exploreuk.uky.edu/dips/xt7f4q7qpg4w/data/2001ua068/2001ua068_1/2001ua068_1_13_p/2001ua068_01_013/2001ua068_01_013.jpg" 
-						alt="Main Administration Building" class="col-md-12 "></a>
-					<h3 class="col-md-12 ">Photo of Main Administration Building. Provided by exploreUK, 
-						clicking the image will take you to a collection of UK postcards. </h3>
-					<p>After scrolling through the time slider you will notice there are several buildings 
-						that were constructed in earlier years, and later acquired by the University as campus 
-						expanded. The oldest structure on campus is actually 206 E Maxwell St. - built in 1853
-						and acquired by the University in 1994. By selecting from the dropdown options, you can
-						also filter and examine key trends based on buildings usage type (housing, medical, 
-						campus, etc.).</br>
-					</p>-->
 				</section>
 			</aside>
 		</section>
@@ -353,9 +321,22 @@
 		}).addTo(map);
 	});
 
-	//add UK property boundary layer using JQuery getJSON() method
-	$.getJSON("data/photo_locations.geojson", function (poi) {
-		const property = L.geoJson(poi, {
+	//add UK buildings boundary layer using JQuery getJSON() method
+	$.getJSON("data/uk_buildings.geojson", function (data) {
+		const buildings = L.geoJson(data, {
+			style: function (feature) {
+				return {
+					color: 'gray',
+					weight: 1,
+					fillColor: 'none',
+				};
+			},
+		}).addTo(map);
+	});
+
+	//add UK POI boundary layer using JQuery getJSON() method
+	$.getJSON("data/photo_locations.geojson", function (data) {
+		const poi = L.geoJson(data, {
 			style: function (feature) {
 				return {
 					color: 'black',
@@ -367,20 +348,20 @@
 		}).addTo(map);
 	});
 
-	// add UK buildings layer using JQuery getJSON() method
-	$.getJSON("data/UK_Parcel_Acquisition_WebMer.geojson", function (buildings) {
-		console.log(buildings);
+	// add UK parcels layer using JQuery getJSON() method
+	$.getJSON("data/UK_Parcel_Acquisition_WebMer.geojson", function (parcels) {
+		console.log(parcels);
 	
 		// call drawMap() function
-		drawMap(buildings); 
+		drawMap(parcels); 
 	});
 	
 	// draw building geoJson layer, call createSliderUI() and updateMap() functions
-	function drawMap(buildings) {
-		console.log(buildings);
+	function drawMap(parcels) {
+		console.log(parcels);
 		
 		// set building layer style and add to map
-		const dataLayer = L.geoJson(buildings, {
+		const dataLayer = L.geoJson(parcels, {
 			style: function (feature) {
 				return {
 				color: '#20282e',
@@ -393,13 +374,13 @@
 
 	/* selection menu - will work on if time allows - struggle with UI slider and dropdown so thought 
 	doing a selection menu might be simpler
-		const athleticLayer = L.geoJson(buildings, dataLayer).addTo(map);
-		const campusLayer = L.geoJson(buildings, dataLayer).addTo(map);
-		const greekLayer = L.geoJson(buildings, dataLayer).addTo(map);
-		const housingLayer = L.geoJson(buildings, dataLayer).addTo(map);
-		const medicalLayer = L.geoJson(buildings, dataLayer).addTo(map);
-		const otherLayer = L.geoJson(buildings, dataLayer).addTo(map);
-		const transportationLayer = L.geoJson(buildings, dataLayer).addTo(map);
+		const athleticLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		const campusLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		const greekLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		const housingLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		const medicalLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		const otherLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		const transportationLayer = L.geoJson(parcels, dataLayer).addTo(map);
 		var buildingLayers = {
 			"<span class='layer=title'>Athletics</span>": athleticLayer,
 			"<span class='layer=title'>Campus</span>": campusLayer,
@@ -415,7 +396,7 @@
 */
 		// create slider - call createSliderUI() function
 		createSliderUI(dataLayer);
-		// filterByAttribute(dataLayer, buildings);
+		// filterByAttribute(dataLayer, parcels);
 
 		// call updateMap() function 
 		updateMap(dataLayer, currentYear);
