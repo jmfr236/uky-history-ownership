@@ -341,38 +341,37 @@
 		maxZoom: 18
 	}).addTo(map);
   
-  var poi = L.geoJson("../data/photo_locations.geojson", {
-    style: function(feature) {
-      return {color: feature.properties,color};
-
-    },
-    onEachFeature: function (feature, layer) {
-      var popupText = 'geometry type: ' + feature.geometry.type;
-
-if (feature.properties.color) {
-  popupText += '<br/>color: ' + feature.properties.color;
-}
-
-layer.bindPopup(popupText);
-}
-    }); 
-
-	/*//add UK property boundary layer using JQuery getJSON() method
-	var poi =$.getJSON("../data/photo_locations.geojson", function (poi) {
-		const property = L.geoJson(poi, {
-			style: function (feature) {
+	//add UK POI boundary layer using JQuery getJSON() method
+	$.getJSON("../data/photo_locations.geojson", function (data) {
+		const poi = L.geoJson(data, {
+			style: function(feature) {
 				return {
-					color: 'black',
-					weight: 1,
-					dashArray: '2',
-					fillColor: 'none',
+					color: "red"
 				};
 			},
+			pointToLayer: function (feature, latlng) {
+				return L.circleMarker(latlng, {
+					radius: 3,
+					fillColor: 'red',
+					fillOpacity: 1, 
+					weight: 1,
+				});
+			},
+			onEachFeature: function (feature, layer) {
+				layer.bindTooltip(layer.feature.properties.HistoricDescription);
+			}
 		}).addTo(map);
-	});
 
-  var markers = L.markerClusterGroup()*/
+  console.log(poi)
+  poi.on("click", function(evt){
+	var content = evt.layer.feature.properties.popupContent;
+  var win =  L.control.window(map,{title:'Hello world!',maxWidth:400,modal: true})
+  .content(content)
+  .prompt({callback:function(){alert('This is called after OK click!')}})
+  .show()
+  })
 
+}); 
 /*  // add UK buildings layer using JQuery getJSON() method
 	$.getJSON("../data/photo_locations.geojson", function (poi) {
 		console.log(poi);

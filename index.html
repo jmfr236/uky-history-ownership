@@ -330,23 +330,31 @@
 				return {
 					color: 'gray',
 					weight: 1,
-					fillColor: 'none',
+					fillColor: 'black',
 				};
 			},
 		}).addTo(map);
 	});
 
-	//add UK POI boundary layer using JQuery getJSON() method
+	//add UK POI layer using JQuery getJSON() method
 	$.getJSON("data/photo_locations.geojson", function (data) {
 		const poi = L.geoJson(data, {
+			style: function(feature) {
+				return {
+					color: "red"
+				};
+			},
 			pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, {
-					radius: 4,
+					radius: 3,
 					fillColor: 'red',
-					color: 'red',
+					fillOpacity: 1, 
 					weight: 1,
 				});
 			},
+			onEachFeature: function (feature, layer) {
+				layer.bindTooltip(layer.feature.properties.HistoricDescription);
+			}
 		}).addTo(map);
 	});
 
@@ -368,7 +376,8 @@
 				return {
 				color: '#20282e',
 				weight: 1,
-				fillOpacity: 0.75,
+				opacity: 0,
+				fillOpacity: 0,
 				fillColor: "#1f78b4",
 				};
 			},
@@ -449,7 +458,7 @@
 								color: "yellow",
 								weight: 2,
 								opacity: 1,
-								fillOpacity: 1
+								fillOpacity: .25
 							});
 						});
 
@@ -458,9 +467,8 @@
 							layer.setStyle({
 								color: '#20282e',
 								weight: 1,	
-								fillOpacity: 1,							
-								fillColor: "#1f78b4",
-								opacity: 1
+								fillOpacity: .25,							
+								fillColor: "#1f78b4"
 							});
 						});
 				} else {
