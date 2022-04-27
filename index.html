@@ -14,8 +14,17 @@
 		crossorigin="" />
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Catamaran:600|Merriweather+Sans:300" rel="stylesheet">
-	
+	<!-- typeahead -->
+	<link rel="stylesheet" href="../src/jquery.typeahead.css">
+
 	<style>
+
+#multiple-datasets .search-name {
+  margin: 0 20px 5px 20px;
+  padding: 3px 0;
+  border-bottom: 1px solid #ccc;
+}
+
 		body {
 			background: #20282e;
 			font-family: 'Merriweather Sans', Sans-Serif;
@@ -204,13 +213,15 @@
 					<a class="dropdown-item" href="#">All Features</a>
 				  </div>
 				</li>
-			  </ul>
-			  <form class="form-inline my-2 my-lg-0">
-				<input class="form-control form-control-sm mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-secondary btn-sm my-2 my-sm-0" type="submit">Search</button>
-			  </form>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<div id="multiple-datasets">
+					<input class="form-control form-control-sm mr-sm-2" type="search" placeholder="Parcels and Buildings" aria-label="Search">
+					<button class="btn btn-secondary btn-sm my-2 my-sm-0" type="submit">Search</button>
+				</div>
+			</form>
 			</div>
-		  </nav>
+		</nav>
 
 		<section class="row">
 			<div class="col-md-12 col-lg-12 col-xl-12 order-md-2 px-0">
@@ -279,6 +290,11 @@
 	<!-- then jQuery slider -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://d3js.org/d3.v6.min.js"></script>
+	<!-- then jQuery typeahead -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.9.3/typeahead.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.11.9/package/docs-assets/js/typeahead.bundle.js"></script>
+		
+	
 	<script>
 	
 	// map options
@@ -366,6 +382,41 @@
 		drawMap(parcels); 
 	});
 	
+	// add search functionality
+		
+	var parcelSearch = new Bloodhound({
+	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('Grantor'),
+	queryTokenizer: Bloodhound.tokenizers.whitespace,
+	prefetch: '../data/UK_Parcel_Acquisition_WebMer.geojson'
+	});
+
+	var buildingSearch = new Bloodhound({
+	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('GIS_MAPB_2'),
+	queryTokenizer: Bloodhound.tokenizers.whitespace,
+	prefetch: '../data/uk_buildings.geojson'
+	});
+
+	$('#multiple-datasets .typeahead').typeahead({
+	highlight: true
+	},
+	{
+	name: 'parcel',
+	display: 'Grantor',
+	source: parcelSearch,
+	templates: {
+		header: '<h3 class="search-name">NBA Teams</h3>'
+	}
+	},
+	{
+	name: 'buildings',
+	display: 'GIS_MAPB_2',
+	source: buildingSearch,
+	templates: {
+		header: '<h3 class="search-name">NHL Teams</h3>'
+	}
+	});
+
+
 	// draw building geoJson layer, call createSliderUI() and updateMap() functions
 	function drawMap(parcels) {
 		console.log(parcels);
@@ -415,7 +466,7 @@
 		// call updateYear() function when slider changed
 		updateYear(dataLayer, currentYear);
 
-		filterByAttribute(dataLayer);
+		//filterByAttribute(dataLayer);
     }
 
     function updateMap(dataLayer, currentYear) {
@@ -559,7 +610,7 @@
 			});
 	} // end updateYear()
 
-	function filterByAttribute(dataLayer) {
+	/*function filterByAttribute(dataLayer) {
 		// array to hold select options
 
 		// dataLayer.getLayers()
@@ -632,7 +683,7 @@
 		// d3.select('#ui-menu > a').html(val);  // update the UI with current val
 		})
 	}
-	}
+	}*/
 	
 	</script>
 </body>
