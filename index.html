@@ -19,6 +19,11 @@
 
 	<style>
 
+        /* Extra styles to adjust Typeahead */
+        .typeahead__container {
+            max-width: 500px;
+        }
+
 #multiple-datasets .search-name {
   margin: 0 20px 5px 20px;
   padding: 3px 0;
@@ -214,12 +219,23 @@
 				  </div>
 				</li>
 			</ul>
-			<form class="form-inline my-2 my-lg-0">
-				<div id="multiple-datasets">
-					<input class="form-control form-control-sm mr-sm-2" type="search" placeholder="Parcels and Buildings" aria-label="Search">
-					<button class="btn btn-secondary btn-sm my-2 my-sm-0" type="submit">Search</button>
-				</div>
-			</form>
+				<form class="form-inline my-2 my-lg-0">
+					<!--<div id="multiple-datasets">-->
+					<div class="typeahead__container">
+						<div class="typeahead__field">
+							<div class="typeahead__query">
+								<input class="js-typeahead" name="q" autofocus autocomplete="off">
+								<!-- <input class="form-control form-control-sm mr-sm-2" type="search" placeholder="Parcels and Buildings" aria-label="Search">
+								<button class="btn btn-secondary btn-sm my-2 my-sm-0" type="submit">Search</button> -->
+							</div>
+							<div class="typeahead__button">
+								<button class="btn btn-default" type="submit">
+									<span class="typeahead__search-icon"></span>
+								</button>
+							</div>
+						</div>
+					</div>		
+				</form>
 			</div>
 		</nav>
 
@@ -293,8 +309,9 @@
 	<!-- then jQuery typeahead -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.9.3/typeahead.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.11.9/package/docs-assets/js/typeahead.bundle.js"></script>
-		
-	
+	<!--script src="../dist/jquery.typeahead.min.js"></script-->
+		<script src="../src/jquery.typeahead.js"></script>
+
 	<script>
 	
 	// map options
@@ -325,6 +342,64 @@
 	// global variables
 	const currentYear = 2022;
 
+	var dataLayers = {
+		"ale": [
+                "Affligem Blonde", "Amsterdam Big Wheel", "Amsterdam Boneshaker IPA", "Amsterdam Downtown Brown", "Amsterdam Oranje Summer White",
+                "Anchor Liberty Ale", "Beaus Lug Tread Lagered Ale", "Beerded Lady", "Belhaven Best Ale", "Big Rock Grasshopper Wheat",
+                "Big Rock India Pale Ale", "Big Rock Traditional Ale", "Big Rock Warthog Ale", "Black Oak Nut Brown Ale", "Black Oak Pale Ale",
+		],
+		"lager": [
+			"AC-DC Premium Lager", "Alpine Lager", "Amstel Light", "Amsterdam (416) Local Lager", "Amsterdam Natural Blonde", "Anchor Steam Beer",
+            "Barking Squirrel Lager", "Bavaria 8.6", "Bavaria 8.6 Red", "Bavaria Grapefruit Radler", "Bavaria Premium Beer", "Bavik Pils",
+            "Baysville Rock Cut Lager", "Becks", "Belle Gueule"
+		],
+		"stout": [
+			"Belhaven Black Scottish Stout", "Guinness Draught Bottle", "Guinness Extra Stout", "Guinness Pub Draught", "Murphys Irish Stout",
+            "Muskoka Chocolate Cranberry", "Sleeman Fine Porter"
+		]
+	};
+
+	console.log(dataLayers)
+
+
+	typeof $.typeahead === 'function' && $.typeahead({
+            input: ".js-typeahead",
+            minLength: 1,
+            maxItem: 15,
+            order: "asc",
+            hint: true,
+            group: {
+                template: "{{group}}"
+            },
+            maxItemPerGroup: 5,
+            backdrop: {
+                "background-color": "#fff"
+            },
+            href: "/beers/{{group}}/{{display}}/",
+            dropdownFilter: "all features",
+            emptyTemplate: 'No result for "{{query}}"',
+            source: {
+                ale: {
+                    data: dataLayers.ale
+                },
+                lager: {
+                    data: dataLayers.lager
+                },
+                "stout and porter": {
+                    data: dataLayers.stout
+                },
+            },
+            callback: {
+                onClickAfter: function (node, a, item, event) {
+
+                    // href key gets added inside item from options.href configuration
+                    alert(item.href);
+
+                }
+            },
+            debug: true
+    });
+
 	//add UK property boundary layer using JQuery getJSON() method
 	$.getJSON("data/uk_property.geojson", function (data) {
 		const property = L.geoJson(data, {
@@ -340,7 +415,7 @@
 	});
 
 	//add UK buildings boundary layer using JQuery getJSON() method
-	$.getJSON("data/uk_buildings.geojson", function (data) {
+	var buildingLayer = $.getJSON("data/uk_buildings.geojson", function (data) {
 		const buildings = L.geoJson(data, {
 			style: function (feature) {
 				return {
@@ -375,7 +450,7 @@
 	});
 
 	// add UK parcels layer using JQuery getJSON() method
-	$.getJSON("data/UK_Parcel_Acquisition_WebMer.geojson", function (parcels) {
+	var parcelLayer = $.getJSON("data/UK_Parcel_Acquisition_WebMer.geojson", function (parcels) {
 		console.log(parcels);
 	
 		// call drawMap() function
@@ -384,7 +459,7 @@
 	
 	// add search functionality
 		
-	var parcelSearch = new Bloodhound({
+	/* var parcelSearch = new Bloodhound({
 	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('Grantor'),
 	queryTokenizer: Bloodhound.tokenizers.whitespace,
 	prefetch: '../data/UK_Parcel_Acquisition_WebMer.geojson'
@@ -414,7 +489,7 @@
 	templates: {
 		header: '<h3 class="search-name">NHL Teams</h3>'
 	}
-	});
+	});  */
 
 
 	// draw building geoJson layer, call createSliderUI() and updateMap() functions
