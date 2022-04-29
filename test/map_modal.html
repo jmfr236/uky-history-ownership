@@ -16,6 +16,11 @@
 	<link href="https://fonts.googleapis.com/css?family=Catamaran:600|Merriweather+Sans:300" rel="stylesheet">
 	
 	<style>
+
+.modal-content {
+  pointer-events: auto;
+}
+
 		body {
 			background: #20282e;
 			font-family: 'Merriweather Sans', Sans-Serif;
@@ -342,7 +347,7 @@
 	}).addTo(map);
   
 	//add UK POI boundary layer using JQuery getJSON() method
-	$.getJSON("../data/photo_locations.geojson", function (data) {
+	var layer = $.getJSON("../data/photo_locations.geojson", function (data) {
 		const poi = L.geoJson(data, {
 			style: function(feature) {
 				return {
@@ -358,20 +363,44 @@
 				});
 			},
 			onEachFeature: function (feature, layer) {
-				layer.bindTooltip(layer.feature.properties.HistoricDescription);
+				layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" + 
+					layer.feature.properties.HistoricDescription + '</br><img src ="../images/comparison/neville_foodcart_today.jpg"/>'+"</div>")				
+				//layer.bindTooltip(layer.feature.properties.HistoricDescription);
 			}
-		}).addTo(map);
+		}).addTo(map).on('click', markerOnClick);
 
   console.log(poi)
-  poi.on("click", function(evt){
-	var content = evt.layer.feature.properties.popupContent;
+
+  //onEachFeature(data)
+}); 
+
+function onMarkerClick(e)
+
+/*function markerOnClick(e) {
+  var id = this.options.id;
+  $(".modal-content").html('This is marker ' + id);
+  $('myModal').modal('show');
+  map.setView(e.target.getLatLng());
+  e.preventDefault();
+}
+/*Close modal on map click */
+/*map.on('click', function(e) {
+  $('.modal').modal('hide');
+}); 
+*/
+
+/*poi.on("click", function(e) {
+	  $("#myModal").modal("show"); 
+  })
+}); */
+/*	var content = evt.layer.feature.properties.popupContent;
   var win =  L.control.window(map,{title:'Hello world!',maxWidth:400,modal: true})
   .content(content)
   .prompt({callback:function(){alert('This is called after OK click!')}})
   .show()
   })
 
-}); 
+}); */ 
 /*  // add UK buildings layer using JQuery getJSON() method
 	$.getJSON("../data/photo_locations.geojson", function (poi) {
 		console.log(poi);
@@ -401,28 +430,33 @@
       }
 		}).addTo(map)}?*/ 
 
-/*
+
 // Get the modal
 var modal = document.getElementById("myModal");
 
+console.log(modal)
 // Get the image and insert it inside the modal - use its "alt" text as a caption
 var img = document.getElementById("myImg");
 var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
-img.onclick = function(){
-  modal.style.display = "block";
-  modalImg.src = this.src;
-  captionText.innerHTML = this.alt;
+
+function onEachFeature(data) {
+	map.on('click', function() {
+		//jQuery.noConflict(); 
+		$('myModal').modal({show: true});
+	})
 }
 
-// Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() { 
   modal.style.display = "none";
 }
-*/
+//angular module? https://angular-ui.github.io/bootstrap/  https://stackoverflow.com/questions/33312549/opening-a-bootstrap-modal-with-leafletsjs
+// Get the <span> element that closes the modal
+// https://jsfiddle.net/askebos/Lh1y12uq
+// react https://react-bootstrap.github.io/components/modal/
 </script>
 
 </body>
