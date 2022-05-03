@@ -2,24 +2,23 @@
 
 <!-- TOC -->
 
-- [UK Campus Expansion | Historic Parcel Acquisition](#uk-campus-expansion--historic-parcel-acquisition)
-- [I. Introduction](#i-introduction)
-- [II. Methodology](#ii-methodology)
-  - [A. Data & Processing](#a-data--processing)
-  - [B. Design - Application Layout](#b-design---application-layout)
-- [III. Conclusion](#iii-conclusion)
+  - [I. Introduction](#i-introduction)
+  - [II. Methodology](#ii-methodology)
+    - [A. Data & Processing](#a-data--processing)
+    - [B. Design - Application Layout](#b-design---application-layout)
+  - [III. Conclusion](#iii-conclusion)
 
 <!-- /TOC -->
 
-# I. Introduction
+## I. Introduction
 
 In my current position with the University of Kentucky - ITS Information Services, I work closely with UK Facilities Management and their datasets. Our department has identified a need for historic parcel/plat data to be digitized and made available in an easy to use map environment. This is something our department has wanted to complete for a while, but have not been able to get funding to support the development.I am proposing to design an interactive map that will allow users to easily search and view University of Kentucky owned parcels. There is not a single location for this data. Finding additional information requires digging through deed books and various documents. More recent parcel data can be obtained from the LFUCG PVA; but older sections of campus have been merged into large parcels, instead of the original parcel size they were purchased at. Some historic data is currently in a CAD DWG, which would need to be geospatially referenced and digitized. Another pressing need is that the CAD document is maintained by a single person. With many folks retiring, it is important that a resource is available before the 'keeper' of this data retires.
 I want to design a map that explores historic parcel ownership/purchases of the University of Kentucky on the Lexington main campus. Important to identify when the University of Kentucky purchased specific parcels on main campus, from who (person, organization, etc.), and the original size. 
 
-# II. Methodology
+## II. Methodology
 This project compiles multiple data sources to develop a unique data set that combines modern parcels data and historic UK property acquisitions. UK basemap features were provided from **[UK ITS Information Services - Geospatial](https://www.uky.edu/gissupport/sites/www.uky.edu.gissupport/files/Campus_Feature_Descriptions_0.pdf )**. Historic UK parcel data was provided by UK Facilities Management & UK ITS Information Services - Facilities Library. Modern Fayette County Parcel Data was sourced from **[Lexington Fayette Urban County Government (LFUCG)](https://data-lfucg.hub.arcgis.com/datasets/e4a525d8772741468205e82fc173db22_0/about)**. 
 
-## A. Data & Processing
+### A. Data & Processing
 **UK Ownership Boundary**
 (UK ITS Information Services - Geospatial)
 
@@ -64,7 +63,7 @@ This project compiles multiple data sources to develop a unique data set that co
   - Exported the table to excel to edit the data
   - Important note: Data will need to be somewhat secured and have limited access. 
 
-## B. Design - Application Layout
+### B. Design - Application Layout
 Create a scrolling story map that will show the history of the UK campus and highlight points of interest (limited interactivity?). Throughout the story map I will use a mixture of the interactive basemap, static historic maps, and photos. Photos will be in the side panel with text and zoom to the location on the map. When users get to the ed of the story map they can explore the points of interest and see the images a well on the interactive property acquisition map.
 
 The wire frame below is for the interactive property acquisition map. Want this to be full screen and offer more freedom to explore the data. It may be best to be its own page from the story map, they are two unique items that can stand alone? Too much for one page, be faster, some people may just want the map and skip the history? Have links between the story map and the interactive map?
@@ -84,6 +83,6 @@ https://www.re.photos/en/
 I kind of prefer the idea of a transparency opposed to a slide bar opposed to a slider, but transparency may make the imperfections more noticable? 
 
 
-# III. Conclusion
+## III. Conclusion
 
 Provide a brief (one or two paragraphs) statement to conclude the proposal. This will likely be restating what you said in the introduction, but also (re)consider the format we used in the first assignment (a topic with a motivating question).

@@ -290,10 +290,7 @@
         <span class="close">&times;</span>
         <div id="caption"></div>
       </div>
-      </div>
-
-      </section>
-    </aside>
+    </div>
   </section>
 
 </div>
@@ -367,17 +364,38 @@
 				layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" + 
 					layer.feature.properties.HistoricDescription + '</br><img src ="../images/comparison/neville_foodcart_today.jpg"/>'+"</div>")				
 				//layer.bindTooltip(layer.feature.properties.HistoricDescription);
-			}
+			},
 		}).addTo(map).on('click', function(e) {
   		$('#myModal').modal('show');
 		});
 		
-  console.log(poi)
-
-  //onEachFeature(data)
+  console.log(poi);
+//onMarkerClick(data);
 }); 
 
 // function onMarkerClick(e)
+
+//function onMarkerClick(data) {
+// Get the modal
+/*var modal = document.getElementById("myModal");
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById("myImg");
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+  modal.style.display = "block";
+  modalImg.src = this.src;
+  captionText.innerHTML = this.alt;
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+  modal.style.display = "none";
+}*/
 
 /*function markerOnClick(e) {
   var id = this.options.id;
@@ -460,6 +478,7 @@ span.onclick = function() {
 // Get the <span> element that closes the modal
 // https://jsfiddle.net/askebos/Lh1y12uq
 // react https://react-bootstrap.github.io/components/modal/
+//https://codepen.io/neni9/pen/MVVOwj
 </script>
 
 </body>
