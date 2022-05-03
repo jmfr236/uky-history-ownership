@@ -12,7 +12,7 @@
 
 ## I. Introduction
 
-The University of Kentucky was founded in 1865 as a Land-Grant Institution. The original campus was located at the Ashland Estate, the University did not move to its current location until 1880. UK opened at its current location in 1882 with three buildings (Administration Building, White Hall Dormitory, and President Patterson House - White Hall and Patterson House were demolished in the 1960's for the development of Patterson Office Tower and White Hall Classroom Building). 
+The University of Kentucky was founded in 1865 as a Land-Grant Institution. The original campus was located at the Ashland Estate, the University did not move to its current location until 1880. UK opened at its current location in 1882 with three buildings (Administration Building, White Hall Dormitory, and President Patterson House - White Hall and Patterson House were demolished in the 1960's for the development of Patterson Office Tower and White Hall Classroom Building). Since then UK Lexington Main Campus has grown to xxxxx building xxxx acres
 
 In my current position with the University of Kentucky - ITS Information Services, I work closely with UK Facilities Management and their datasets. Our department has identified a need for historic parcel/plat data to be digitized and made available in an easy to use map environment. This is something our department has wanted to complete for a while, but have not been able to get funding to support the development.I am proposing to design an interactive map that will allow users to easily search and view University of Kentucky owned parcels. There is not a single location for this data. Finding additional information requires digging through deed books and various documents. More recent parcel data can be obtained from the LFUCG PVA; but older sections of campus have been merged into large parcels, instead of the original parcel size they were purchased at. Some historic data is currently in a CAD DWG, which would need to be geospatially referenced and digitized. Another pressing need is that the CAD document is maintained by a single person. With many folks retiring, it is important that a resource is available before the 'keeper' of this data retires.
 I want to design a map that explores historic parcel ownership/purchases of the University of Kentucky on the Lexington main campus. Important to identify when the University of Kentucky purchased specific parcels on main campus, from who (person, organization, etc.), and the original size. 
@@ -32,7 +32,6 @@ This project compiles multiple data sources to develop a unique data set that co
   - Downloaded shapefile in projection NAD 1983 StatePlane Kentucky FIPS 1600 (US Feet)
   - Converted shapefile to a geodatabase using the ArcPro Geoprocessing Tool 'Feature Class to Geodatabase'
   - The information contained in this file is from multiple data sources maintained by the University of Kentucky’s ITS Information Services
-  - NOTE: I would like to use rest service so it is regularly updated and maintained
 
 **Fayette County Parcel Data**
 (LFUCG)
