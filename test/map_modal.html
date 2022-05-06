@@ -41,9 +41,16 @@
 		h3 {
 			Font-Family: 'Merriweather Sans', Sans-Serif;
 			font-size: .6em;
-			font-style: italic 
+			font-style: italic; 
 		}
 
+		h4 {
+			Font-Family: 'Merriweather Sans', Sans-Serif;
+			line-height: 1rem;
+			font-size: 1.1em;
+			font-weight: bold;
+		}
+		
 		p {
 			Font-Family: 'Merriweather Sans', Sans-Serif;
 			line-height: 1rem;
@@ -111,7 +118,9 @@
 		.leaflet-tooltip img {
 			max-width: 200px;
 			max-height: 200px;
-			border-radius: 10%;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			padding: 5px;
 		}
 
 		/* Small devices (landscape phones, 576px and up) */
@@ -281,7 +290,7 @@
 		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
 		maxZoom: 18
 	}).addTo(map);
-  
+
 	//add UK POI boundary layer using JQuery getJSON() method
 	var poi_layer = $.getJSON("../data/photo_locations.geojson", function (data) {
 		const poi = L.geoJson(data, {
@@ -304,7 +313,7 @@
 
 				// bind tooltip to feature
 				layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" + 
-					`<p>${props["SiteName"]} </br><img src ="../images/comparison/${props['SiteID']}.1.jpg"/>` +"</div>")		
+					`<h4>${props["SiteName"]} </br><img src ="../images/comparison/${props['SiteID']}.1.jpg"/>` +"</div>")		
 				
 				// add image comparison slider
 				window.onload = function() {
