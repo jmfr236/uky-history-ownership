@@ -93,6 +93,7 @@
 		#map {
 			height: 96vh;
 			background: #20282e;
+			z-index: 0;
 		}
 
 		#ui-menu {
@@ -185,10 +186,10 @@
 		@media (min-width: 1200px) {}
 
 		#menu {
-			background: #fff;
+			background: rgb(204, 17, 17);
 			position: absolute;
-			z-index: 1;
-			top: 10px;
+			z-index: 2400;
+			top: 100px;
 			right: 10px;
 			border-radius: 3px;
 			width: 120px;
@@ -284,7 +285,7 @@
 
 		<section class="row">
 			<div class="col-md-12 col-lg-12 col-xl-12 order-md-2 px-0">
-				<nav id="menu"></nav>
+				<div id="menu"></div>
 				<div id='map'>
 					<!-- ui dropdown menu-->
 				<!--<div id="ui-menu" class="dropdown">
@@ -387,7 +388,7 @@
 	const currentYear = 2022;
 
 	//add UK property boundary layer using JQuery getJSON() method
-	$.getJSON("data/uk_property.geojson", function (data) {
+	$.getJSON("../data/uk_property.geojson", function (data) {
 		const property = L.geoJson(data, {
 			style: function (feature) {
 				return {
@@ -401,7 +402,7 @@
 	});
 
 	//add UK buildings boundary layer using JQuery getJSON() method
-	var buildingLayer = $.getJSON("data/uk_buildings.geojson", function (data) {
+	var buildingLayer = $.getJSON("../data/uk_buildings.geojson", function (data) {
 		const buildings = L.geoJson(data, {
 			style: function (feature) {
 				return {
@@ -414,7 +415,7 @@
 	});
 
 	//add UK POI layer using JQuery getJSON() method
-	var poiLayer = $.getJSON("data/photo_locations.geojson", function (data) {
+	var poiLayer = $.getJSON("../data/photo_locations.geojson", function (data) {
 		const poi = L.geoJson(data, {
 			style: function(feature) {
 				return {
@@ -436,7 +437,7 @@
 	});
 
 	// add UK parcels layer using JQuery getJSON() method
-	var parcelLayer = $.getJSON("data/uk_parcel_ownership.geojson", function (parcels) {
+	var parcelLayer = $.getJSON("../data/UK_Parcel_Acquisition_WebMer.geojson", function (parcels) {
 		console.log(parcels);
 	
 		// call drawMap() function
@@ -494,6 +495,134 @@
 
 		//filterByAttribute(dataLayer);
     }
+
+/* var urls = [
+		'../data/uk_buildings.geojson',
+		'../data/UK_Parcel_Acquisition_WebMer.geojson'
+	]
+
+var control = new L.control.layers().addTo(map);
+for (var i = 0; i < urls.length; i++) {
+
+var layers = [];
+
+$.getJSON(urls[i], function (data) {
+	var layer = new L.GeoJSON(data).addTo(map);
+	layers.push(layer);
+	control.addOverlay(layer, 'Layer' + layers.length);
+});
+} */
+
+// Wait until the map has finished loading.
+map.on('load', () => {
+// Add a custom vector tileset source. This tileset contains
+// point features representing museums. Each feature contains
+// three properties. For example:
+// {
+//     alt_name: "Museo Arqueologico",
+//     name: "Museo Inka",
+//     tourism: "museum"
+// }
+	map.addSource('museums', {
+	type: 'vector',
+	url: 'mapbox://mapbox.2opop9hr'
+	});
+	map.addLayer({
+	'id': 'museums',
+	'type': 'circle',
+	'source': 'museums',
+	'layout': {
+	// Make the layer visible by default.
+	'visibility': 'visible'
+	},
+	'paint': {
+	'circle-radius': 8,
+	'circle-color': 'rgba(55,148,179,1)'
+	},
+	'source-layer': 'museum-cusco'
+	});
+	
+	// Add the Mapbox Terrain v2 vector tileset. Read more about
+	// the structure of data in this tileset in the documentation:
+	// https://docs.mapbox.com/vector-tiles/reference/mapbox-terrain-v2/
+	map.addSource('contours', {
+	type: 'vector',
+	url: 'mapbox://mapbox.mapbox-terrain-v2'
+	});
+	map.addLayer({
+	'id': 'contours',
+	'type': 'line',
+	'source': 'contours',
+	'source-layer': 'contour',
+	'layout': {
+	// Make the layer visible by default.
+	'visibility': 'visible',
+	'line-join': 'round',
+	'line-cap': 'round'
+	},
+	'paint': {
+	'line-color': '#877b59',
+	'line-width': 1
+	}
+	});
+});
+
+// After the last frame rendered before the map enters an "idle" state.
+map.on('idle', () => {
+	// If these two layers were not added to the map, abort
+	if (!map.getLayer('parcelLayer') || !map.getLayer('buildingLayer')) {
+	return;
+	}
+	
+	// Enumerate ids of the layers.
+	const toggleableLayerIds = ['Parcels', 'Buildings'];
+	
+	// Set up the corresponding toggle button for each layer.
+	for (const id of toggleableLayerIds) {
+	// Skip layers that already have a button set up.
+	if (document.getElementById(id)) {
+	continue;
+	}
+	
+	// Create a link.
+	const link = document.createElement('a');
+	link.id = id;
+	link.href = '#';
+	link.textContent = id;
+	link.className = 'active';
+	
+	// Show or hide layer when the toggle is clicked.
+	link.onclick = function (e) {
+	const clickedLayer = this.textContent;
+	e.preventDefault();
+	e.stopPropagation();
+	
+	const visibility = map.getLayoutProperty(
+	clickedLayer,
+	'visibility'
+	);
+	
+	// Toggle layer visibility by changing the layout object's visibility property.
+	if (visibility === 'visible') {
+	map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+	this.className = '';
+	} else {
+	this.className = 'active';
+	map.setLayoutProperty(
+	clickedLayer,
+	'visibility',
+	'visible'
+	);
+}
+};
+ 
+const layers = document.getElementById('menu');
+layers.appendChild(link);
+}
+});
+
+
+
 
     function updateMap(dataLayer, currentYear) {
     	// loop through each county layer to update the color 
