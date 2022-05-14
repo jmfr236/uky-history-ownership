@@ -241,6 +241,7 @@
 
 </div>
 
+<!--https://niklasknaack.de/aics/-->
 
 	<!-- jQuery first and the minified version from jQuery site, not the slim minified version from Bootstrap's site. -->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -296,14 +297,16 @@
 		const poi = L.geoJson(data, {
 			style: function(feature) {
 				return {
-					color: "red"
+					color: "#DA9517",
+					opacity:.75,
+					weight:3,
 				};
 			},
 			pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, {
-					radius: 3,
-					fillColor: 'red',
-					fillOpacity: 1, 
+					radius: 4,
+					fillColor: '#EEB902',
+					fillOpacity: .5, 
 					weight: 1,
 				});
 			},

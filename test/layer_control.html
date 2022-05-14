@@ -14,21 +14,11 @@
 		crossorigin="" />
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Catamaran:600|Merriweather+Sans:300" rel="stylesheet">
-	<!-- typeahead -->
-	<link rel="stylesheet" href="../src/jquery.typeahead.css">
 
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" data-require="leaflet@0.7.3" data-semver="0.7.3" />
+
+	
 	<style>
-
-        /* Extra styles to adjust Typeahead */
-        .typeahead__container {
-            max-width: 500px;
-        }
-
-		#multiple-datasets .search-name {
-		margin: 0 20px 5px 20px;
-		padding: 3px 0;
-		border-bottom: 1px solid #ccc;
-		}
 
 		body {
 			background: #20282e;
@@ -93,7 +83,6 @@
 		#map {
 			height: 96vh;
 			background: #20282e;
-			z-index: 0;
 		}
 
 		#ui-menu {
@@ -186,10 +175,10 @@
 		@media (min-width: 1200px) {}
 
 		#menu {
-			background: rgb(204, 17, 17);
+			background: #fff;
 			position: absolute;
-			z-index: 2400;
-			top: 100px;
+			z-index: 1;
+			top: 10px;
 			right: 10px;
 			border-radius: 3px;
 			width: 120px;
@@ -234,93 +223,44 @@
 <body>
 	<div class="container-fluid">
 
-
 		<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark py-0">
 			<a class="navbar-brand" href="#">History of Campus Expansion</br>
 				<p class="font-weight-bold">University of Kentucky</p></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			  <span class="navbar-toggler-icon"></span>
+				<span class="navbar-toggler-icon"></span>
 			</button>
-		  
+
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			  <ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-				  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-				  <a class="nav-link" href="https://github.com/jmfr236/uky-history-ownership/blob/main/README.md">About</a>
-				</li>
-				<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Select Features
-				  </a>
-				  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="#">Point of Interest</a>
-					<a class="dropdown-item" href="#">Buildings</a>
-					<a class="dropdown-item" href="#">Parcels</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">All Features</a>
-				  </div>
-				</li>
-			</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<!--<div id="multiple-datasets">-->
-					<div class="typeahead__container">
-						<div class="typeahead__field">
-							<div class="typeahead__query">
-								<input class="js-typeahead" name="q" autofocus autocomplete="off">
-								<!-- <input class="form-control form-control-sm mr-sm-2" type="search" placeholder="Parcels and Buildings" aria-label="Search">
-								<button class="btn btn-secondary btn-sm my-2 my-sm-0" type="submit">Search</button> -->
-							</div>
-							<div class="typeahead__button">
-								<button class="btn btn-default" type="submit">
-									<span class="typeahead__search-icon"></span>
-								</button>
-							</div>
-						</div>
-					</div>		
-				</form>
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/jmfr236/uky-history-ownership/blob/main/README.md">About</a>
+					</li>
+				</ul>
 			</div>
 		</nav>
 
 		<section class="row">
 			<div class="col-md-12 col-lg-12 col-xl-12 order-md-2 px-0">
-				<div id="menu"></div>
 				<div id='map'>
-					<!-- ui dropdown menu-->
-				<!--<div id="ui-menu" class="dropdown">
-					<a class="btn btn-light text-secondary font-weight-bold dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						All Building Types
-					</a>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">-->
-						<!-- <a id="athletics" class="dropdown-item" href="#">Athletics</a>
-						<a id="campus" class="dropdown-item" href="#">Campus</a>
-						<a id="greek" class="dropdown-item" href="#">Greek Life</a>
-						<a id="housing" class="dropdown-item" href="#">Housing</a>
-						<a id="medical" class="dropdown-item" href="#">Medical</a>
-						<a id="other" class="dropdown-item" href="#">Other</a>
-						<a id="transportation" class="dropdown-item" href="#">Transportation</a> -->
-					</div>
-				</div>
-				<!-- ui slider element -->
-				<div id="ui-controls" class="bg-light text-secondary font-weight-bold">
-					<label><span class="min">1860</span>
-						<span class="max">2022</span>
-						<input type="range" min="1860", max="2022",
-						value="2022", step="10" class="year-slider" ></input>
-					</label>  
-				</div>
-				<!-- ui construction year date and property legend -->
-				<div id='year' class="text-light font-weight-bold">
-					<!-- <label><img src="graphics/dashed-line.png" width="20px" height="20px"> UK Property</br>-->
-					</br>
-						Year Display: <span>2022</span></label>
-				</div>
 				</div>
 			</div>
-				</section>
-			</aside>
+			<!-- ui slider element -->
+			<div id="ui-controls" class="bg-light text-secondary font-weight-bold">
+				<label><span class="min">1860</span>
+					<span class="max">2022</span>
+					<input type="range" min="1860", max="2022",
+					value="2022", step="10" class="year-slider" ></input>
+				</label>  
+			</div>
+			<!-- ui construction year date and property legend -->
+			<div id='year' class="text-light font-weight-bold">
+				<!-- <label><img src="graphics/dashed-line.png" width="20px" height="20px"> UK Property</br>-->
+				</br>
+					Year Display: <span>2022</span></label>
+			</div>
 		</section>
 
 		<footer class="text-white">
@@ -351,14 +291,9 @@
 	<!-- then jQuery slider -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://d3js.org/d3.v6.min.js"></script>
-	<!-- then jQuery typeahead -->
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.9.3/typeahead.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.11.9/package/docs-assets/js/typeahead.bundle.js"></script>
-	<!--script src="../dist/jquery.typeahead.min.js"></script-->
-		<script src="../src/jquery.typeahead.js"></script>
-
-	<script>
 	
+	<script>
+
 	// map options
 	const options = {
 		zoomSnap: .1,
@@ -387,9 +322,13 @@
 	// global variables
 	const currentYear = 2022;
 
+	//https://stackoverflow.com/questions/28534705/how-to-add-two-geojson-feature-collections-in-to-two-layer-groups
+	
+	var controlLayers = L.control.layers().addTo(map);
+
 	//add UK property boundary layer using JQuery getJSON() method
-	$.getJSON("../data/uk_property.geojson", function (data) {
-		const property = L.geoJson(data, {
+	var propertyLayer = $.getJSON("../data/uk_property.geojson", function (geojson) {
+		var geojsonLayer = L.geoJson(geojson, {
 			style: function (feature) {
 				return {
 					color: 'black',
@@ -399,47 +338,26 @@
 				};
 			},
 		}).addTo(map);
+		controlLayers.addOverlay(geojsonLayer, 'Property Boundary');
 	});
 
 	//add UK buildings boundary layer using JQuery getJSON() method
-	var buildingLayer = $.getJSON("../data/uk_buildings.geojson", function (data) {
-		const buildings = L.geoJson(data, {
+	var buildingLayer = $.getJSON("../data/uk_buildings.geojson", function (geojson) {
+		const geojsonLayer = L.geoJson(geojson, {
 			style: function (feature) {
 				return {
-					color: 'gray',
-					weight: 1,
+					color: '#778899',
+					weight: .5,
 					fillColor: 'black',
 				};
 			},
 		}).addTo(map);
-	});
-
-	//add UK POI layer using JQuery getJSON() method
-	var poiLayer = $.getJSON("../data/photo_locations.geojson", function (data) {
-		const poi = L.geoJson(data, {
-			style: function(feature) {
-				return {
-					color: "red"
-				};
-			},
-			pointToLayer: function (feature, latlng) {
-				return L.circleMarker(latlng, {
-					radius: 3,
-					fillColor: 'red',
-					fillOpacity: 1, 
-					weight: 1,
-				});
-			},
-			onEachFeature: function (feature, layer) {
-				layer.bindTooltip(layer.feature.properties.HistoricDescription);
-			}
-		}).addTo(map);
+		controlLayers.addOverlay(geojsonLayer, 'Buildings');
 	});
 
 	// add UK parcels layer using JQuery getJSON() method
-	var parcelLayer = $.getJSON("../data/UK_Parcel_Acquisition_WebMer.geojson", function (parcels) {
+	var parcelLayer = $.getJSON("../data/uk_parcel_ownership.geojson", function (parcels) {
 		console.log(parcels);
-	
 		// call drawMap() function
 		drawMap(parcels); 
 	});
@@ -447,42 +365,19 @@
 	// draw building geoJson layer, call createSliderUI() and updateMap() functions
 	function drawMap(parcels) {
 		console.log(parcels);
-		
+
 		// set building layer style and add to map
 		const dataLayer = L.geoJson(parcels, {
 			style: function (feature) {
 				return {
 				color: '#20282e',
 				weight: 1,
-				opacity: 0,
-				fillOpacity: 0,
-				fillColor: "#1f78b4",
+				opacity: .5,
+				fillOpacity: .75,
+				fillColor: "#1E8AFF",
 				};
 			},
 		}).addTo(map); 
-
-	/* selection menu - will work on if time allows - struggle with UI slider and dropdown so thought 
-	doing a selection menu might be simpler
-		const athleticLayer = L.geoJson(parcels, dataLayer).addTo(map);
-		const campusLayer = L.geoJson(parcels, dataLayer).addTo(map);
-		const greekLayer = L.geoJson(parcels, dataLayer).addTo(map);
-		const housingLayer = L.geoJson(parcels, dataLayer).addTo(map);
-		const medicalLayer = L.geoJson(parcels, dataLayer).addTo(map);
-		const otherLayer = L.geoJson(parcels, dataLayer).addTo(map);
-		const transportationLayer = L.geoJson(parcels, dataLayer).addTo(map);
-		var buildingLayers = {
-			"<span class='layer=title'>Athletics</span>": athleticLayer,
-			"<span class='layer=title'>Campus</span>": campusLayer,
-			"<span class='layer=title'>Greek Life</span>": greekLayer,
-			"<span class='layer=title'>Housing</span>": housingLayer,
-			"<span class='layer=title'>Medical</span>": medicalLayer,
-			"<span class='layer=title'>Other</span>": otherLayer,
-			"<span class='layer=title'>Transportation</span>": transportationLayer,
-		}
-		var layerSelection = L.control.layers(null, buildingLayers, {
-			collapsed: false
-		}).addTo(map);
-	*/
 
 		// create slider - call createSliderUI() function
 		createSliderUI(dataLayer);
@@ -492,137 +387,7 @@
 
 		// call updateYear() function when slider changed
 		updateYear(dataLayer, currentYear);
-
-		//filterByAttribute(dataLayer);
-    }
-
-/* var urls = [
-		'../data/uk_buildings.geojson',
-		'../data/UK_Parcel_Acquisition_WebMer.geojson'
-	]
-
-var control = new L.control.layers().addTo(map);
-for (var i = 0; i < urls.length; i++) {
-
-var layers = [];
-
-$.getJSON(urls[i], function (data) {
-	var layer = new L.GeoJSON(data).addTo(map);
-	layers.push(layer);
-	control.addOverlay(layer, 'Layer' + layers.length);
-});
-} */
-
-// Wait until the map has finished loading.
-map.on('load', () => {
-// Add a custom vector tileset source. This tileset contains
-// point features representing museums. Each feature contains
-// three properties. For example:
-// {
-//     alt_name: "Museo Arqueologico",
-//     name: "Museo Inka",
-//     tourism: "museum"
-// }
-	map.addSource('museums', {
-	type: 'vector',
-	url: 'mapbox://mapbox.2opop9hr'
-	});
-	map.addLayer({
-	'id': 'museums',
-	'type': 'circle',
-	'source': 'museums',
-	'layout': {
-	// Make the layer visible by default.
-	'visibility': 'visible'
-	},
-	'paint': {
-	'circle-radius': 8,
-	'circle-color': 'rgba(55,148,179,1)'
-	},
-	'source-layer': 'museum-cusco'
-	});
-	
-	// Add the Mapbox Terrain v2 vector tileset. Read more about
-	// the structure of data in this tileset in the documentation:
-	// https://docs.mapbox.com/vector-tiles/reference/mapbox-terrain-v2/
-	map.addSource('contours', {
-	type: 'vector',
-	url: 'mapbox://mapbox.mapbox-terrain-v2'
-	});
-	map.addLayer({
-	'id': 'contours',
-	'type': 'line',
-	'source': 'contours',
-	'source-layer': 'contour',
-	'layout': {
-	// Make the layer visible by default.
-	'visibility': 'visible',
-	'line-join': 'round',
-	'line-cap': 'round'
-	},
-	'paint': {
-	'line-color': '#877b59',
-	'line-width': 1
-	}
-	});
-});
-
-// After the last frame rendered before the map enters an "idle" state.
-map.on('idle', () => {
-	// If these two layers were not added to the map, abort
-	if (!map.getLayer('parcelLayer') || !map.getLayer('buildingLayer')) {
-	return;
-	}
-	
-	// Enumerate ids of the layers.
-	const toggleableLayerIds = ['Parcels', 'Buildings'];
-	
-	// Set up the corresponding toggle button for each layer.
-	for (const id of toggleableLayerIds) {
-	// Skip layers that already have a button set up.
-	if (document.getElementById(id)) {
-	continue;
-	}
-	
-	// Create a link.
-	const link = document.createElement('a');
-	link.id = id;
-	link.href = '#';
-	link.textContent = id;
-	link.className = 'active';
-	
-	// Show or hide layer when the toggle is clicked.
-	link.onclick = function (e) {
-	const clickedLayer = this.textContent;
-	e.preventDefault();
-	e.stopPropagation();
-	
-	const visibility = map.getLayoutProperty(
-	clickedLayer,
-	'visibility'
-	);
-	
-	// Toggle layer visibility by changing the layout object's visibility property.
-	if (visibility === 'visible') {
-	map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-	this.className = '';
-	} else {
-	this.className = 'active';
-	map.setLayoutProperty(
-	clickedLayer,
-	'visibility',
-	'visible'
-	);
-}
-};
- 
-const layers = document.getElementById('menu');
-layers.appendChild(link);
-}
-});
-
-
-
+    };
 
     function updateMap(dataLayer, currentYear) {
     	// loop through each county layer to update the color 
@@ -636,27 +401,30 @@ layers.appendChild(link);
 			if (yearBuilt <= currentYear) {
 				
 				layer.setStyle({
-						opacity: 1,
-						fillOpacity: 1
-					})
-
-						layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" + 
-						`<b><u>Deed Information</b></u><br/>
-						<p><b>Grantor: </b> ${props['Grantor']}<br/>
-						<b>Deed Book: </b>${props['DB']}, p. ${props['DB_PG']}<br/>
-						<b>Deed Date: </b> ${props['Deed_Date']}<br/>
-						<b>Original Deed Address: </b> ${props['Deed_Alternate_Name']}<br/><br/>
-						<small>PVA Number: ${props['PVANUM']}<br/>
-						PVA Address: ${props['ADDRESS']}</p>` + "</div>",
-				{
-					direction: 'right',
-					permanent: false,
-					sticky: true,
-					offset: [10, 0],
-					align: 'center',
-					opacity: 1,
-					className: 'leaflet-tooltip-own' 
+					color: '#20282e',
+					weight: 1, 
+					opacity: .5,
+					fillOpacity: .75,
+					fillColor: "#1E8AFF",
 				});
+
+				layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" + 
+					`<b><u>Deed Information</b></u><br/>
+					<p><b>Grantor: </b> ${props['Grantor']}<br/>
+					<b>Deed Book: </b>${props['DB']}, p. ${props['DB_PG']}<br/>
+					<b>Deed Date: </b> ${props['Deed_Date']}<br/>
+					<b>Original Deed Address: </b> ${props['Deed_Alternate_Name']}<br/><br/>
+					<small>PVA Number: ${props['PVANUM']}<br/>
+					PVA Address: ${props['ADDRESS']}</p>` + "</div>",
+					{
+						direction: 'right',
+						permanent: false,
+						sticky: true,
+						offset: [10, 0],
+						align: 'center',
+						opacity: 1,
+						className: 'leaflet-tooltip-own' 
+					});
 
 				layer.on("mouseover", function () {
 							layer.bringToFront();
@@ -664,19 +432,20 @@ layers.appendChild(link);
 								color: "yellow",
 								weight: 2,
 								opacity: 1,
-								fillOpacity: .25
+								fillOpacity: .5,
 							});
-						});
+				});
 
 				layer.on("mouseout", function () {
 							layer.bringToBack();
 							layer.setStyle({
 								color: '#20282e',
 								weight: 1,	
-								fillOpacity: .25,							
-								fillColor: "#1f78b4"
+								opacity: .5,
+								fillOpacity: .75,							
+								fillColor: "#1E8AFF"
 							});
-						});
+				});
 				} else {
 					layer.setStyle({
 						opacity: 0,
@@ -699,7 +468,7 @@ layers.appendChild(link);
 						})
 					})
 				}
-			})
+		})
 	}; // end updateMap()
 
 	// Add slider to the map
@@ -764,82 +533,6 @@ layers.appendChild(link);
 				updateMap(dataLayer, currentYear); // update timestamp in legend heading
 			});
 	} // end updateYear()
-
-	/*function filterByAttribute(dataLayer) {
-		// array to hold select options
-
-		// dataLayer.getLayers()
-		var uniqueTypes = [];
-		
-		// loop through all features and push unique types to array
-		dataLayer.eachLayer(function (maint) {
-			const props = maint.feature.properties
-			if (!uniqueTypes.includes(props.GIS_MAPB_9)) {
-				uniqueTypes.push(props.GIS_MAPB_9);
-			}
-		});
-
-		// sort strings alphabetically
-		uniqueTypes.sort();
-
-		// add an all facilities to the beginning
-		uniqueTypes.unshift('All Building Types');
-		// console.log(maint.GIS_MAPB_9)
-
-		// select all the options (that don't exist yet)
-		d3.select('#ui-menu .dropdown-menu').selectAll('a')
-		.data(uniqueTypes) // use array as data
-		.join('a') // append a new option element for each data item
-		.text(d => {
-			return d // use the item as text
-		})
-		.attr('value', d => {
-			return d // use the time as value attribute
-		})
-		.attr('href', '#')
-		.classed('dropdown-item', true)
-		.on('click', onchange);  // when the user clicks call onchange function
-
-		function onchange() {
-			// get the currently selected value
-			let val = d3.select(this).attr('value');
-
-			dataLayer.eachLayer(function (maint) {
-				const props = maint.feature.properties
-				if (val != props.GIS_MAPB_9) {
-					maint.setStyle({
-						stroke: false,
-						fill: false
-					})
-
-				} else {
-					maint.setStyle({
-						stroke: true,
-						fill: true
-					})
-				}
-
-				if (val == 'All Building Types' ) { 
-
-				maint.setStyle({
-					stroke: true,
-					fill: true
-					});
-				}
-
-
-			d3.select('#ui-menu > a').html(val);  // update the UI with current val
-		
-		// change the display property for each circle
-		// dataLayer.style('display', d => {
-		// if (val === 'All Building Types') return 'inline';
-		// if (d.GIS_MAPB_9 != val) return 'none';
-		// });
-		// d3.select('#ui-menu > a').html(val);  // update the UI with current val
-		})
-	}
-	}*/
-	
 	</script>
 </body>
 
