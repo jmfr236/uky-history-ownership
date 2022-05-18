@@ -32,11 +32,13 @@
 		h1 {
 			Font-Family: 'Catamaran', Sans-Serif;
 			font-weight: 800;
+			font-size: 1em;
 		}
 
 		h2 {
-			Font-Family: 'Catamaran', Sans-Serif;
-			font-style: oblique;
+			Font-Family: 'Arial', Sans-Serif;
+			font-size: 1.1em;
+			font-style: bold;
 		}
 
 		h3 {
@@ -46,7 +48,7 @@
 		}
 
 		p {
-			Font-Family: 'Merriweather Sans', Sans-Serif;
+			Font-Family: 'Arial', Sans-Serif;
 			line-height: 1rem;
 			font-size: .9em;
 		}
@@ -225,7 +227,7 @@
 
 		<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark py-0">
 			<a class="navbar-brand" href="#">History of Campus Expansion</br>
-				<p class="font-weight-bold">University of Kentucky</p></a>
+				<h1 class="font-weight-bold">University of Kentucky</h1></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -259,7 +261,7 @@
 			<div id='year' class="text-light font-weight-bold">
 				<!-- <label><img src="graphics/dashed-line.png" width="20px" height="20px"> UK Property</br>-->
 				</br>
-					Year Display: <span>2022</span></label>
+					<label>Year Display: <span>2022</span></label>
 			</div>
 		</section>
 
@@ -409,7 +411,7 @@
 				});
 
 				layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" + 
-					`<b><u>Deed Information</b></u><br/>
+					`<h2><b><u>Deed Information</b></u></h2>
 					<p><b>Grantor: </b> ${props['Grantor']}<br/>
 					<b>Deed Book: </b>${props['DB']}, p. ${props['DB_PG']}<br/>
 					<b>Deed Date: </b> ${props['Deed_Date']}<br/>
