@@ -313,7 +313,13 @@
     }).addTo(map);
 
     //add UK POI boundary layer using JQuery getJSON() method
-    $.getJSON("../data/photo_locations.geojson", function (data) {
+    const locationsData = $.getJSON("../data/photo_locations.geojson");
+
+    $.when(locationsData).done(function (data) {
+      drawMap(data);
+    });
+
+    function drawMap(data) {
       const poi = L.geoJson(data, {
         style: function (feature) {
           return {
@@ -331,30 +337,53 @@
           });
         },
         onEachFeature: function (feature, layer) {
-          var props = layer.feature.properties
-          console.log(props)
+          var props = layer.feature.properties;
 
           // bind tooltip to feature
-          layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" +
-            `<h4>${props["SiteName"]} </br><img src ="../images/comparison/${props['SiteID']}.1.jpg"/>` + "</div>")
+          // layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" +
+          //   `<h4>${props["SiteName"]} </br><img src ="../images/comparison/${props['SiteID']}.1.jpg"/>` + "</div>");
+
+          layer.on('click', function () {
+            updateImageSlider(props['SiteID']);
+          })
 
         },
-      }).addTo(map).on('click', function (e) {
-        $('#myModal').modal('show');
-      });
-    });
-    // add image comparison slider
-    window.onload = function () {
+      }).addTo(map);
+    }
+
+    // .on('click', function (e) {
+    //     $('#myModal').modal('show');
+    //   });
+
+    function updateImageSlider(imageId) {
+
+      console.log(imageId)
+
+      $('#myModal').modal('show');
+
       new SliderBar({
         el: "#image-compare",
-        beforeImg: `../images/comparison/01.1.jpg`,
-        afterImg: `../images/comparison/01.2.jpg`,
+        beforeImg: `../images/comparison/${imageId}.1.jpg`,
+        afterImg: `../images/comparison/${imageId}.2.jpg`,
         //width: "90%",
         height: "75%",
         line: false
       });
-      //console.log(poi);
-    };
+    }
+
+
+    // add image comparison slider
+    // window.onload = function () {
+    //   new SliderBar({
+    //     el: "#image-compare",
+    //     beforeImg: `../images/comparison/01.1.jpg`,
+    //     afterImg: `../images/comparison/01.2.jpg`,
+    //     //width: "90%",
+    //     height: "75%",
+    //     line: false
+    //   });
+    //   //console.log(poi);
+    // };
 
 //angular module? https://angular-ui.github.io/bootstrap/  https://stackoverflow.com/questions/33312549/opening-a-bootstrap-modal-with-leafletsjs
 // Get the <span> element that closes the modal
