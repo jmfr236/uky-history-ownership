@@ -317,7 +317,12 @@
 				// bind tooltip to feature
 				layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" + 
 					`<h4>${props["SiteName"]} </br><img src ="../images/comparison/${props['SiteID']}.1.jpg"/>` +"</div>")		
-				
+			
+			},
+		}).addTo(map).on('click', function(e) {
+			$('#myModal').modal('show');
+		});
+	});
 				// add image comparison slider
 				window.onload = function() {
 					new SliderBar({
@@ -328,14 +333,9 @@
 						height: "75%",
 						line: false
 					});
-					console.log(poi);
+					//console.log(poi);
 				};
-			},
-		}).addTo(map).on('click', function(e) {
-			$('#myModal').modal('show');
-		});
-	});
-
+				
 //angular module? https://angular-ui.github.io/bootstrap/  https://stackoverflow.com/questions/33312549/opening-a-bootstrap-modal-with-leafletsjs
 // Get the <span> element that closes the modal
 // https://jsfiddle.net/askebos/Lh1y12uq

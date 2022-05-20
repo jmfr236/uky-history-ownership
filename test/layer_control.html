@@ -17,7 +17,6 @@
 
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" data-require="leaflet@0.7.3" data-semver="0.7.3" />
 
-	
 	<style>
 
 		body {
@@ -251,19 +250,21 @@
 				</div>
 			</div>
 			<!-- ui slider element -->
-			<div id="ui-controls" class="bg-light text-secondary font-weight-bold">
+			<!--<div id="ui-controls" class="bg-light text-secondary font-weight-bold">
 				<label><span class="min">1860</span>
 					<span class="max">2022</span>
 					<input type="range" min="1860", max="2022",
 					value="2022", step="10" class="year-slider" ></input>
 				</label>  
-			</div>
+			</div>-->
+			<!-- https://getbootstrap.com/docs/5.0/forms/checks-radios/ -->
+
 			<!-- ui construction year date and property legend -->
 			<div id='year' class="text-light font-weight-bold">
 				<!-- <label><img src="graphics/dashed-line.png" width="20px" height="20px"> UK Property</br>-->
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-					<label class="form-check-label" for="flexCheckChecked">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" value="" id="flexSwitchCheckChecked" checked>
+					<label class="form-check-label" for="flexSwitchCheckChecked">
 					  Points of Interest*
 					</label>
 				  </div>
@@ -289,7 +290,6 @@
 						value="2022", step="10" class="year-slider" ></input>
 					</label>  
 				</div>
-
 				<h3>*Points of Interest are not filtered by the date slider</h3>
 			</div>
 		</section>
@@ -322,7 +322,8 @@
 	<!-- then jQuery slider -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://d3js.org/d3.v6.min.js"></script>
-	
+
+
 	<script>
 
 	// map options
@@ -355,7 +356,7 @@
 
 	//https://stackoverflow.com/questions/28534705/how-to-add-two-geojson-feature-collections-in-to-two-layer-groups
 	
-	var controlLayers = L.control.layers().addTo(map);
+	//var controlLayers = L.control.layers().addTo(map);
 
 	//add UK property boundary layer using JQuery getJSON() method
 	var propertyLayer = $.getJSON("../data/uk_property.geojson", function (geojson) {
@@ -369,7 +370,7 @@
 				};
 			},
 		}).addTo(map);
-		controlLayers.addOverlay(geojsonLayer, 'Property Boundary');
+		//controlLayers.addOverlay(geojsonLayer, 'Property Boundary');
 	});
 
 	//add UK buildings boundary layer using JQuery getJSON() method
@@ -383,7 +384,7 @@
 				};
 			},
 		}).addTo(map);
-		controlLayers.addOverlay(geojsonLayer, 'Buildings');
+		//controlLayers.addOverlay(geojsonLayer, 'Buildings');
 	});
 
 	// add UK parcels layer using JQuery getJSON() method
