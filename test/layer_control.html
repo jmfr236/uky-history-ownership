@@ -521,28 +521,28 @@
 		// Add slider to the map
 		function createSliderUI(dataLayer) {
 			// create Leaflet control for the slider
-			const sliderControl = L.control({
-				position: 'bottomleft'
-			});
+			// const sliderControl = L.control({
+			// 	position: 'bottomleft'
+			// });
 
-			// when added to the map
-			sliderControl.onAdd = function (map) {
+			// // when added to the map
+			// sliderControl.onAdd = function (map) {
 
-				// select an existing DOM element with an id of "ui-controls"
-				const slider = L.DomUtil.get("ui-controls");
+			// 	// select an existing DOM element with an id of "ui-controls"
+			// 	const slider = L.DomUtil.get("ui-controls");
 
-				// disable scrolling of map while using controls
-				L.DomEvent.disableScrollPropagation(slider);
+			// 	// disable scrolling of map while using controls
+			// 	L.DomEvent.disableScrollPropagation(slider);
 
-				// disable click events while using controls
-				L.DomEvent.disableClickPropagation(slider);
+			// 	// disable click events while using controls
+			// 	L.DomEvent.disableClickPropagation(slider);
 
-				// return the slider from the onAdd method
-				return slider;
-			}
+			// 	// return the slider from the onAdd method
+			// 	return slider;
+			// }
 
-			// add the control to the map
-			sliderControl.addTo(map);
+			// // add the control to the map
+			// sliderControl.addTo(map);
 		} // end createSliderUI()
 
 		// add legend and year display showing the year selected
