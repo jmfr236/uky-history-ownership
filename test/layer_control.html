@@ -15,17 +15,17 @@
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Catamaran:600|Merriweather+Sans:300" rel="stylesheet">
 
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" data-require="leaflet@0.7.3" data-semver="0.7.3" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"
+		data-require="leaflet@0.7.3" data-semver="0.7.3" />
 
 	<style>
-
 		body {
 			background: #20282e;
 			font-family: 'Merriweather Sans', Sans-Serif;
 		}
 
 		header {
-			background-image: linear-gradient(to left,#0033A0,#1B365D)
+			background-image: linear-gradient(to left, #0033A0, #1B365D)
 		}
 
 		h1 {
@@ -43,7 +43,7 @@
 		h3 {
 			Font-Family: 'Merriweather Sans', Sans-Serif;
 			font-size: .7em;
-			font-style: italic 
+			font-style: italic
 		}
 
 		p {
@@ -68,13 +68,13 @@
 		li {
 			font-size: .75em;
 			text-align: right;
-		}	
+		}
 
 		footer {
 			Font-Family: 'Merriweather Sans', Sans-Serif;
 			line-height: .25rem;
 			height: 2.25em;
-			background-image: linear-gradient(to left,#0033A0,#1B365D);
+			background-image: linear-gradient(to left, #0033A0, #1B365D);
 		}
 
 		#about {
@@ -114,7 +114,7 @@
 		#year {
 			width: 193px;
 			padding: 8px 8px 8px 8px;
-			background:#1B365D;
+			background: #1B365D;
 			opacity: .75;
 			box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 			border-radius: 5px;
@@ -135,7 +135,7 @@
 			left: 0;
 			margin-left: -12px;
 			border-right-color: rgba(0, 0, 0, 0.4);
-			}
+		}
 
 		.leaflet-tooltip-own {
 			position: absolute;
@@ -149,7 +149,7 @@
 			-ms-user-select: none;
 			user-select: none;
 			pointer-events: none;
-			box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 		}
 
 		.leaflet-tooltip img {
@@ -185,8 +185,8 @@
 			width: 120px;
 			border: 1px solid rgba(0, 0, 0, 0.4);
 			font-family: 'Open Sans', sans-serif;
-			}
-			
+		}
+
 		#menu a {
 			font-size: 13px;
 			color: #404040;
@@ -197,26 +197,25 @@
 			text-decoration: none;
 			border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 			text-align: center;
-			}
-			
+		}
+
 		#menu a:last-child {
 			border: none;
-			}
-			
+		}
+
 		#menu a:hover {
 			background-color: #f8f8f8;
 			color: #404040;
-			}
-			
+		}
+
 		#menu a.active {
 			background-color: #3887be;
 			color: #ffffff;
-			}
-			
+		}
+
 		#menu a.active:hover {
 			background: #3074a4;
-			}
-
+		}
 	</style>
 
 </head>
@@ -226,8 +225,10 @@
 
 		<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark py-0">
 			<a class="navbar-brand" href="#">History of Campus Expansion</br>
-				<h1 class="font-weight-bold">University of Kentucky</h1></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<h1 class="font-weight-bold">University of Kentucky</h1>
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
@@ -237,7 +238,8 @@
 						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="https://github.com/jmfr236/uky-history-ownership/blob/main/README.md">About</a>
+						<a class="nav-link"
+							href="https://github.com/jmfr236/uky-history-ownership/blob/main/README.md">About</a>
 					</li>
 				</ul>
 			</div>
@@ -265,30 +267,30 @@
 				<div class="form-check form-switch">
 					<input class="form-check-input" type="checkbox" value="" id="flexSwitchCheckChecked" checked>
 					<label class="form-check-label" for="flexSwitchCheckChecked">
-					  Points of Interest*
+						Points of Interest*
 					</label>
-				  </div>
+				</div>
 				<div class="form-check">
 					<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
 					<label class="form-check-label" for="flexCheckChecked">
-					  Parcels
+						Parcels
 					</label>
-				  </div>
+				</div>
 				<div class="form-check">
 					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 					<label class="form-check-label" for="flexCheckDefault">
-					  Buildings
+						Buildings
 					</label>
-				  </div>
+				</div>
 				</br>
 				<label>Year Display: <span>2022</span></label>
 				<!-- ui slider element -->
 				<div id="ui-controls" class="bg-light text-secondary font-weight-bold">
 					<label><span class="min">1860</span>
 						<span class="max">2022</span>
-						<input type="range" min="1860", max="2022",
-						value="2022", step="10" class="year-slider" ></input>
-					</label>  
+						<input type="range" min="1860" , max="2022" , value="2022" , step="10"
+							class="year-slider"></input>
+					</label>
 				</div>
 				<h3>*Points of Interest are not filtered by the date slider</h3>
 			</div>
@@ -298,7 +300,8 @@
 			<div class="col">
 				<ul class="list-unstyled"> </br>
 					<h3 align="right">This product is not affiliated or sponsored by the University of Kentucky</h3>
-					<h3 align="right">Authored by <a href="https://jmfr236.github.io/">Jessica Freeman</a>, June 2022</li>
+					<h3 align="right">Authored by <a href="https://jmfr236.github.io/">Jessica Freeman</a>, June 2022
+						</li>
 				</ul>
 			</div>
 		</footer>
@@ -320,164 +323,176 @@
 		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
 		crossorigin=""></script>
 	<!-- then jQuery slider -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="https://d3js.org/d3.v6.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://d3js.org/d3.v6.min.js"></script>
 
 
 	<script>
 
-	// map options
-	const options = {
-		zoomSnap: .1,
-		center: [38.027, -84.504], //centered on University of Kentucky campus
-		zoom: 14.5,
-		minZoom: 12,
-		maxZoom: 18,
-		maxBounds: L.latLngBounds([38.066, -84.547], [37.996, -84.454])
-	};
+		// map options
+		const options = {
+			zoomSnap: .1,
+			center: [38.027, -84.504], //centered on University of Kentucky campus
+			zoom: 14.5,
+			minZoom: 12,
+			maxZoom: 18,
+			maxBounds: L.latLngBounds([38.066, -84.547], [37.996, -84.454])
+		};
 
-	// create the Leaflet map
-	const map = L.map('map', options);
+		// create the Leaflet map
+		const map = L.map('map', options);
 
-	// mapbox API access Token
-	// mapbox API parameters
-	const accessToken = `pk.eyJ1Ijoiam1mcjIzNiIsImEiOiJja3c0Yzg5MWw4dHdvMzFzMXI2bGw0Z28wIn0.h1s6bozXOvBTStSlxGe0LA`
-	const yourName = 'jmfr236'
-	const yourMap = 'ckw4ellrb0dy714o11r7tg1wt'
+		// mapbox API access Token
+		// mapbox API parameters
+		const accessToken = `pk.eyJ1Ijoiam1mcjIzNiIsImEiOiJja3c0Yzg5MWw4dHdvMzFzMXI2bGw0Z28wIn0.h1s6bozXOvBTStSlxGe0LA`
+		const yourName = 'jmfr236'
+		const yourMap = 'ckw4ellrb0dy714o11r7tg1wt'
 
-  	// request a mapbox raster tile layer and add to map
-	L.tileLayer(`https://api.mapbox.com/styles/v1/${yourName}/${yourMap}/tiles/256/{z}/{x}/{y}?access_token=${accessToken}`, {
-		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-		maxZoom: 18
-	}).addTo(map);
-	
-	// global variables
-	const currentYear = 2022;
-
-	//https://stackoverflow.com/questions/28534705/how-to-add-two-geojson-feature-collections-in-to-two-layer-groups
-	
-	//var controlLayers = L.control.layers().addTo(map);
-
-	//add UK property boundary layer using JQuery getJSON() method
-	var propertyLayer = $.getJSON("../data/uk_property.geojson", function (geojson) {
-		var geojsonLayer = L.geoJson(geojson, {
-			style: function (feature) {
-				return {
-					color: 'black',
-					weight: 1,
-					dashArray: '2',
-					fillColor: 'none',
-				};
-			},
+		// request a mapbox raster tile layer and add to map
+		L.tileLayer(`https://api.mapbox.com/styles/v1/${yourName}/${yourMap}/tiles/256/{z}/{x}/{y}?access_token=${accessToken}`, {
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			maxZoom: 18
 		}).addTo(map);
-		//controlLayers.addOverlay(geojsonLayer, 'Property Boundary');
-	});
 
-	//add UK buildings boundary layer using JQuery getJSON() method
-	var buildingLayer = $.getJSON("../data/uk_buildings.geojson", function (geojson) {
-		const geojsonLayer = L.geoJson(geojson, {
-			style: function (feature) {
-				return {
-					color: '#778899',
-					weight: .5,
-					fillColor: 'black',
-				};
-			},
-		}).addTo(map);
-		//controlLayers.addOverlay(geojsonLayer, 'Buildings');
-	});
+		// global variables
+		const currentYear = 2022;
 
-	// add UK parcels layer using JQuery getJSON() method
-	var parcelLayer = $.getJSON("../data/uk_parcel_ownership.geojson", function (parcels) {
-		console.log(parcels);
-		// call drawMap() function
-		drawMap(parcels); 
-	});
+		//https://stackoverflow.com/questions/28534705/how-to-add-two-geojson-feature-collections-in-to-two-layer-groups
 
-	// draw building geoJson layer, call createSliderUI() and updateMap() functions
-	function drawMap(parcels) {
-		console.log(parcels);
+		//var controlLayers = L.control.layers().addTo(map);
 
-		// set building layer style and add to map
-		const dataLayer = L.geoJson(parcels, {
-			style: function (feature) {
-				return {
-				color: '#20282e',
-				weight: 1,
-				opacity: .5,
-				fillOpacity: .75,
-				fillColor: "#1E8AFF",
-				};
-			},
-		}).addTo(map); 
+		const ukPropData = $.getJSON("../data/uk_property.geojson");
+		const ukBuildingData = $.getJSON("../data/uk_buildings.geojson");
+		const ukParcelData = $.getJSON("../data/uk_parcel_ownership.geojson");
 
-		// create slider - call createSliderUI() function
-		createSliderUI(dataLayer);
+		$.when(ukPropData, ukBuildingData, ukParcelData).done(function (ukProp, ukBuilding, ukParcel) {
+			console.log(ukProp)
+			console.log(ukBuilding)
+			console.log(ukParcel)
+			drawMap(ukProp, ukBuilding, ukParcel)
+		})
 
-		// call updateMap() function 
-		updateMap(dataLayer, currentYear);
 
-		// call updateYear() function when slider changed
-		updateYear(dataLayer, currentYear);
-    };
+		//add UK property boundary layer using JQuery getJSON() method
+		// var propertyLayer = $.getJSON("../data/uk_property.geojson", function (geojson) {
+		// 	var geojsonLayer = L.geoJson(geojson, {
+		// 		style: function (feature) {
+		// 			return {
+		// 				color: 'black',
+		// 				weight: 1,
+		// 				dashArray: '2',
+		// 				fillColor: 'none',
+		// 			};
+		// 		},
+		// 	}).addTo(map);
+		// 	//controlLayers.addOverlay(geojsonLayer, 'Property Boundary');
+		// });
 
-    function updateMap(dataLayer, currentYear) {
-    	// loop through each county layer to update the color 
-		dataLayer.eachLayer(function (layer) {
+		//add UK buildings boundary layer using JQuery getJSON() method
+		// var buildingLayer = $.getJSON("../data/uk_buildings.geojson", function (geojson) {
+		// 	const geojsonLayer = L.geoJson(geojson, {
+		// 		style: function (feature) {
+		// 			return {
+		// 				color: '#778899',
+		// 				weight: .5,
+		// 				fillColor: 'black',
+		// 			};
+		// 		},
+		// 	}).addTo(map);
+		// 	//controlLayers.addOverlay(geojsonLayer, 'Buildings');
+		// });
 
-			const props = layer.feature.properties;
-			currentYear = Number(currentYear); 
-			yearBuilt = Number(props["Year_Date"]);
-			// console.log(currentYear)
+		// add UK parcels layer using JQuery getJSON() method
+		// var parcelLayer = $.getJSON("../data/uk_parcel_ownership.geojson", function (parcels) {
+		// 	console.log(parcels);
+		// 	// call drawMap() function
+		// 	drawMap(parcels);
+		// });
 
-			if (yearBuilt <= currentYear) {
-				
-				layer.setStyle({
-					color: '#20282e',
-					weight: 1, 
-					opacity: .5,
-					fillOpacity: .75,
-					fillColor: "#1E8AFF",
-				});
+		// draw building geoJson layer, call createSliderUI() and updateMap() functions
+		function drawMap(property, buildings, parcels) {
+			console.log(property, buildings, parcels);
 
-				layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" + 
-					`<h2><b><u>Deed Information</b></u></h2>
+			// set building layer style and add to map
+			const dataLayer = L.geoJson(parcels, {
+				style: function (feature) {
+					return {
+						color: '#20282e',
+						weight: 1,
+						opacity: .5,
+						fillOpacity: .75,
+						fillColor: "#1E8AFF",
+					};
+				},
+			}).addTo(map);
+
+			// create slider - call createSliderUI() function
+			createSliderUI(dataLayer);
+
+			// call updateMap() function 
+			updateMap(dataLayer, currentYear);
+
+			// call updateYear() function when slider changed
+			updateYear(dataLayer, currentYear);
+		};
+
+		function updateMap(dataLayer, currentYear) {
+			// loop through each county layer to update the color 
+			dataLayer.eachLayer(function (layer) {
+
+				const props = layer.feature.properties;
+				currentYear = Number(currentYear);
+				yearBuilt = Number(props["Year_Date"]);
+				// console.log(currentYear)
+
+				if (yearBuilt <= currentYear) {
+
+					layer.setStyle({
+						color: '#20282e',
+						weight: 1,
+						opacity: .5,
+						fillOpacity: .75,
+						fillColor: "#1E8AFF",
+					});
+
+					layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" +
+						`<h2><b><u>Deed Information</b></u></h2>
 					<p><b>Grantor: </b> ${props['Grantor']}<br/>
 					<b>Deed Book: </b>${props['DB']}, p. ${props['DB_PG']}<br/>
 					<b>Deed Date: </b> ${props['Deed_Date']}<br/>
 					<b>Original Deed Address: </b> ${props['Deed_Alternate_Name']}<br/><br/>
 					<small>PVA Number: ${props['PVANUM']}<br/>
 					PVA Address: ${props['ADDRESS']}</p>` + "</div>",
-					{
-						direction: 'right',
-						permanent: false,
-						sticky: true,
-						offset: [10, 0],
-						align: 'center',
-						opacity: 1,
-						className: 'leaflet-tooltip-own' 
+						{
+							direction: 'right',
+							permanent: false,
+							sticky: true,
+							offset: [10, 0],
+							align: 'center',
+							opacity: 1,
+							className: 'leaflet-tooltip-own'
+						});
+
+					layer.on("mouseover", function () {
+						layer.bringToFront();
+						layer.setStyle({
+							color: "yellow",
+							weight: 2,
+							opacity: 1,
+							fillOpacity: .5,
+						});
 					});
 
-				layer.on("mouseover", function () {
-							layer.bringToFront();
-							layer.setStyle({
-								color: "yellow",
-								weight: 2,
-								opacity: 1,
-								fillOpacity: .5,
-							});
-				});
-
-				layer.on("mouseout", function () {
-							layer.bringToBack();
-							layer.setStyle({
-								color: '#20282e',
-								weight: 1,	
-								opacity: .5,
-								fillOpacity: .75,							
-								fillColor: "#1E8AFF"
-							});
-				});
+					layer.on("mouseout", function () {
+						layer.bringToBack();
+						layer.setStyle({
+							color: '#20282e',
+							weight: 1,
+							opacity: .5,
+							fillOpacity: .75,
+							fillColor: "#1E8AFF"
+						});
+					});
 				} else {
 					layer.setStyle({
 						opacity: 0,
@@ -486,85 +501,85 @@
 
 					layer.unbindTooltip()
 
-					layer.on("mouseover", function(){
+					layer.on("mouseover", function () {
 						layer.setStyle({
-						opacity: 0,
-						fillOpacity: 0
+							opacity: 0,
+							fillOpacity: 0
 						})
 					})
 
-					layer.on("mouseout", function(){
+					layer.on("mouseout", function () {
 						layer.setStyle({
-						opacity: 0,
-						fillOpacity: 0
+							opacity: 0,
+							fillOpacity: 0
 						})
 					})
 				}
-		})
-	}; // end updateMap()
+			})
+		}; // end updateMap()
 
-	// Add slider to the map
-	function createSliderUI(dataLayer) {
-      // create Leaflet control for the slider
-		const sliderControl = L.control({ 
-			position: 'bottomleft'
-		});
-
-      // when added to the map
-		sliderControl.onAdd = function(map) {
-
-			// select an existing DOM element with an id of "ui-controls"
-			const slider = L.DomUtil.get("ui-controls");
-
-			// disable scrolling of map while using controls
-			L.DomEvent.disableScrollPropagation(slider);
-
-			// disable click events while using controls
-			L.DomEvent.disableClickPropagation(slider);
-
-			// return the slider from the onAdd method
-			return slider;
-		}
-
-    	// add the control to the map
-		sliderControl.addTo(map);
-	} // end createSliderUI()
-	
-	// add legend and year display showing the year selected
-	function updateYear(dataLayer, currentYear) {
-		// create leaflet control for year and legend display
-		var yearControl = L.control({
-			position: 'bottomleft'
-		});
-
-		//When added to the map
-		yearControl.onAdd = function (map) {
-
-			// select an existing DOM element with an id of "year"
-			var controls = L.DomUtil.get("year");
-
-			// disable scrolling of map while using controls
-			L.DomEvent.disableScrollPropagation(controls);
-
-			// disable click events while using controls
-			L.DomEvent.disableClickPropagation(controls);
-
-			// return the legend and year display from the onAdd method
-			return controls;
-
-		}
-
-		// add the control to the map
-		yearControl.addTo(map); 
-
-      // select the form element
-		$(".year-slider")
-        	.on("input change", function() { // when user changes
-				const currentYear = $(this).val(); // update the year
-				$('#year label span').html(currentYear); // update the map with current timestamp
-				updateMap(dataLayer, currentYear); // update timestamp in legend heading
+		// Add slider to the map
+		function createSliderUI(dataLayer) {
+			// create Leaflet control for the slider
+			const sliderControl = L.control({
+				position: 'bottomleft'
 			});
-	} // end updateYear()
+
+			// when added to the map
+			sliderControl.onAdd = function (map) {
+
+				// select an existing DOM element with an id of "ui-controls"
+				const slider = L.DomUtil.get("ui-controls");
+
+				// disable scrolling of map while using controls
+				L.DomEvent.disableScrollPropagation(slider);
+
+				// disable click events while using controls
+				L.DomEvent.disableClickPropagation(slider);
+
+				// return the slider from the onAdd method
+				return slider;
+			}
+
+			// add the control to the map
+			sliderControl.addTo(map);
+		} // end createSliderUI()
+
+		// add legend and year display showing the year selected
+		function updateYear(dataLayer, currentYear) {
+			// create leaflet control for year and legend display
+			var yearControl = L.control({
+				position: 'bottomleft'
+			});
+
+			//When added to the map
+			yearControl.onAdd = function (map) {
+
+				// select an existing DOM element with an id of "year"
+				var controls = L.DomUtil.get("year");
+
+				// disable scrolling of map while using controls
+				L.DomEvent.disableScrollPropagation(controls);
+
+				// disable click events while using controls
+				L.DomEvent.disableClickPropagation(controls);
+
+				// return the legend and year display from the onAdd method
+				return controls;
+
+			}
+
+			// add the control to the map
+			yearControl.addTo(map);
+
+			// select the form element
+			$(".year-slider")
+				.on("input change", function () { // when user changes
+					const currentYear = $(this).val(); // update the year
+					$('#year label span').html(currentYear); // update the map with current timestamp
+					updateMap(dataLayer, currentYear); // update timestamp in legend heading
+				});
+		} // end updateYear()
 	</script>
 </body>
 
