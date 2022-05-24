@@ -15,8 +15,10 @@
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Catamaran:600|Merriweather+Sans:300" rel="stylesheet">
 
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"
-		data-require="leaflet@0.7.3" data-semver="0.7.3" />
+	<!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"
+		data-require="leaflet@0.7.3" data-semver="0.7.3" /> -->
+	<!-- Bootstrap Switch 
+	<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">-->
 
 	<style>
 		body {
@@ -264,24 +266,27 @@
 			<!-- ui construction year date and property legend -->
 			<div id='year' class="text-light font-weight-bold">
 				<!-- <label><img src="graphics/dashed-line.png" width="20px" height="20px"> UK Property</br>-->
-				<div class="form-check form-switch">
-					<input class="form-check-input" type="checkbox" value="" id="flexSwitchCheckChecked" checked>
-					<label class="form-check-label" for="flexSwitchCheckChecked">
-						Points of Interest*
-					</label>
+				<!--<div class="form-check">--> 
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+					<label class="custom-control-label" for="customSwitch1">Points of Interest*</label>
 				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-					<label class="form-check-label" for="flexCheckChecked">
-						Parcels
-					</label>
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="customSwitch2" checked>
+					<label class="custom-control-label" for="customSwitch2">Parcels</label>
 				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">
-						Buildings
-					</label>
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="customSwitch3" checked>
+					<label class="custom-control-label" for="customSwitch3">Buildings</label>
 				</div>
+				<!--<div class="form-check pl-0">
+					<input id="stackedCheck2" class="form-check-input" type="checkbox" data-toggle="switchbutton" checked data-size="xs">
+					<label for="stackedCheck2" class="form-check-label">Parcels</label>
+				</div>
+				<div class="form-check pl-0">
+					<input id="stackedCheck3" class="form-check-input" type="checkbox" data-toggle="switchbutton" unchecked data-size="xs">
+					<label for="stackedCheck3" class="form-check-label">Buildings</label>
+				</div>--> 
 				</br>
 				<label>Year Display: <span>2022</span></label>
 				<!-- ui slider element -->
@@ -311,9 +316,15 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
 		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 	<!-- then Popper JS -->
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
 		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"></script>-->
+	<!-- then Bootstrap Switch
+		<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script> -->
+	<!-- then jQuery slider
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+	<!-- then jQuery slider 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->	
 	<!-- then Bootstrap JS -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
 		integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
@@ -322,9 +333,6 @@
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
 		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
 		crossorigin=""></script>
-	<!-- then jQuery slider -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://d3js.org/d3.v6.min.js"></script>
 
 
 	<script>
@@ -450,6 +458,25 @@
 			updateYear(parcelLayer, currentYear);
 		};
 
+/*$("customSwitch1").bootstrapSwitch({
+	onSwitchChange: function(event, state) {
+		if(state)map.addLayer(parcelLayer);
+		else map.removeLayer(parcelLayer);
+	}
+})*/
+
+
+		/* $("['parcelCheck']").bootstrapSwitch({
+			onSwitchChange: function (event, state) {
+				
+				if(state) map.addLayer(parcelLayer);
+				else map.removeLayer(parcelLayer);
+			}
+		});*/
+
+
+
+
 		function updateMap(parcelLayer, currentYear) {
 			// loop through each county layer to update the color 
 			parcelLayer.eachLayer(function (layer) {
@@ -470,7 +497,7 @@
 					});
 
 					layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" +
-						`<h2><b><u>Deed Information</b></u></h2>
+					`<h2><b><u>Deed Information</b></u></h2>
 					<p><b>Grantor: </b> ${props['Grantor']}<br/>
 					<b>Deed Book: </b>${props['DB']}, p. ${props['DB_PG']}<br/>
 					<b>Deed Date: </b> ${props['Deed_Date']}<br/>
@@ -594,6 +621,7 @@
 					updateMap(parcelLayer, currentYear); // update timestamp in legend heading
 				});
 		} // end updateYear()
+
 	</script>
 </body>
 
