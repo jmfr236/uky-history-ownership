@@ -291,11 +291,10 @@
 				<label>Year Display: <span>2022</span></label>
 				<!-- ui slider element -->
 				<div id="ui-controls" class="bg-light text-secondary font-weight-bold">
-					<label><span class="min">1860</span>
+					<span class="min">1860</span>
 						<span class="max">2022</span>
-						<input type="range" min="1860" , max="2022" , value="2022" , step="10"
+						<input type="range" min="1860" , max="2022" , value="2020" , step="10"
 							class="year-slider"></input>
-					</label>
 				</div>
 				<h3>*Points of Interest are not filtered by the date slider</h3>
 			</div>
@@ -350,7 +349,9 @@
 		// create the Leaflet map
 		const map = L.map('map', options);
 		map.createPane('propertyLayer');
-		map.getPane('propertyLayer').style.zIndex = 3;
+		map.getPane('propertyLayer').style.zIndex = 300;
+		map.createPane('buildingLayer');
+		map.getPane('buildingLayer').style.zIndex = 350;
 
 		// mapbox API access Token
 		// mapbox API parameters
@@ -409,12 +410,13 @@
 						color: '#778899',
 						weight: .5,
 						fillColor: 'black',
-						fillOpacity: .3
+						fillOpacity: .4,
+						pane: 'buildingLayer'
 					}
 				}
 			}).addTo(map);
 			
-			// set building layer style and add to map
+			// set property layer style and add to map
 			const propertyLayer = L.geoJson(ukProperty, {
 				style: function(feature) {
 					return {
@@ -463,7 +465,7 @@
 		if(state)map.addLayer(parcelLayer);
 		else map.removeLayer(parcelLayer);
 	}
-})*/
+})8?
 
 
 		/* $("['parcelCheck']").bootstrapSwitch({
@@ -562,29 +564,30 @@
 		// Add slider to the map
 		function createSliderUI(parcelLayer) {
 			// create Leaflet control for the slider
-			// const sliderControl = L.control({
-			// 	position: 'bottomleft'
-			// });
+			const sliderControl = L.control({
+				position: 'bottomleft'
+			});
 
 			// // when added to the map
-			// sliderControl.onAdd = function (map) {
+			sliderControl.onAdd = function (map) {
 
-			// 	// select an existing DOM element with an id of "ui-controls"
-			// 	const slider = L.DomUtil.get("ui-controls");
+			// select an existing DOM element with an id of "ui-controls"
+				const slider = L.DomUtil.get("ui-controls");
 
-			// 	// disable scrolling of map while using controls
-			// 	L.DomEvent.disableScrollPropagation(slider);
+			// disable scrolling of map while using controls
+				L.DomEvent.disableScrollPropagation(slider);
 
-			// 	// disable click events while using controls
-			// 	L.DomEvent.disableClickPropagation(slider);
+				// disable click events while using controls
+			 	L.DomEvent.disableClickPropagation(slider);
 
 			// 	// return the slider from the onAdd method
-			// 	return slider;
+			 	return slider;
 			// }
 
 			// // add the control to the map
-			// sliderControl.addTo(map);
+			 sliderControl.addTo(map);
 		} // end createSliderUI()
+	}; 
 
 		// add legend and year display showing the year selected
 		function updateYear(parcelLayer, currentYear) {
