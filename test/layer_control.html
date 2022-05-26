@@ -15,6 +15,8 @@
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Catamaran:600|Merriweather+Sans:300" rel="stylesheet">
 
+
+	<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet"> 
 	<!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"
 		data-require="leaflet@0.7.3" data-semver="0.7.3" /> -->
 	<!-- Bootstrap Switch 
@@ -253,17 +255,9 @@
 				<div id='map'>
 				</div>
 			</div>
-			<!-- ui slider element -->
-			<!--<div id="ui-controls" class="bg-light text-secondary font-weight-bold">
-				<label><span class="min">1860</span>
-					<span class="max">2022</span>
-					<input type="range" min="1860", max="2022",
-					value="2022", step="10" class="year-slider" ></input>
-				</label>  
-			</div>-->
 			<!-- https://getbootstrap.com/docs/5.0/forms/checks-radios/ -->
 
-			<!-- ui construction year date and property legend -->
+			<!-- ui construction year date, and layer toggle -->
 			<div id='year' class="text-light font-weight-bold">
 				<!-- <label><img src="graphics/dashed-line.png" width="20px" height="20px"> UK Property</br>-->
 				<!--<div class="form-check">--> 
@@ -288,6 +282,7 @@
 					<label for="stackedCheck3" class="form-check-label">Buildings</label>
 				</div>--> 
 				</br>
+				<!-- ui construction year date -->
 				<label>Year Display: <span>2022</span></label>
 				<!-- ui slider element -->
 				<div id="ui-controls" class="bg-light text-secondary font-weight-bold">
@@ -333,6 +328,7 @@
 		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
 		crossorigin=""></script>
 
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
 	<script>
 
@@ -451,7 +447,7 @@
 		//controlLayers.addOverlay(geojsonLayer, 'Buildings');
 
 			// create slider - call createSliderUI() function
-			createSliderUI(parcelLayer);
+			//createSliderUI(parcelLayer);
 
 			// call updateMap() function 
 			updateMap(parcelLayer, currentYear);
@@ -465,7 +461,7 @@
 		if(state)map.addLayer(parcelLayer);
 		else map.removeLayer(parcelLayer);
 	}
-})8?
+})*/
 
 
 		/* $("['parcelCheck']").bootstrapSwitch({
@@ -476,9 +472,7 @@
 			}
 		});*/
 
-
-
-
+		
 		function updateMap(parcelLayer, currentYear) {
 			// loop through each county layer to update the color 
 			parcelLayer.eachLayer(function (layer) {
@@ -561,7 +555,7 @@
 			})
 		}; // end updateMap()
 
-		// Add slider to the map
+		/*// Add slider to the map
 		function createSliderUI(parcelLayer) {
 			// create Leaflet control for the slider
 			const sliderControl = L.control({
@@ -571,23 +565,23 @@
 			// // when added to the map
 			sliderControl.onAdd = function (map) {
 
-			// select an existing DOM element with an id of "ui-controls"
-				const slider = L.DomUtil.get("ui-controls");
+				// select an existing DOM element with an id of "ui-controls"
+					const slider = L.DomUtil.get("ui-controls");
 
-			// disable scrolling of map while using controls
-				L.DomEvent.disableScrollPropagation(slider);
+				// disable scrolling of map while using controls
+					L.DomEvent.disableScrollPropagation(slider);
 
 				// disable click events while using controls
-			 	L.DomEvent.disableClickPropagation(slider);
+				L.DomEvent.disableClickPropagation(slider);
 
-			// 	// return the slider from the onAdd method
-			 	return slider;
-			// }
+				// return the slider from the onAdd method
+					return slider;
+			}
 
 			// // add the control to the map
-			 sliderControl.addTo(map);
-		} // end createSliderUI()
-	}; 
+			sliderControl.addTo(map);
+		} // end createSliderUI()*/
+	
 
 		// add legend and year display showing the year selected
 		function updateYear(parcelLayer, currentYear) {
