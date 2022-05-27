@@ -302,34 +302,20 @@
 						<a id="transportation" class="dropdown-item" href="#">Transportation</a> -->
 					</div>
 				</div>
-	<!-- ui construction year date, and layer toggle -->
-	<div id='year' class="text-light font-weight-bold">
-		<!-- <label><img src="graphics/dashed-line.png" width="20px" height="20px"> UK Property</br>-->
-		<!--<div class="form-check">--> 
-		<div class="custom-control custom-switch">
-			<input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-			<label class="custom-control-label" for="customSwitch1">Points of Interest*</label>
-		</div>
-		<div class="custom-control custom-switch">
-			<input type="checkbox" class="custom-control-input" id="customSwitch2" checked>
-			<label class="custom-control-label" for="customSwitch2">Parcels</label>
-		</div>
-		<div class="custom-control custom-switch">
-			<input type="checkbox" class="custom-control-input" id="customSwitch3" checked>
-			<label class="custom-control-label" for="customSwitch3">Buildings</label>
-        </div>
-        </br>
-        <!-- ui construction year date -->
-        <label>Year Display: <span>2022</span></label>
-        <!-- ui slider element -->
-        <div id="ui-controls" class="bg-light text-secondary font-weight-bold">
-            <span class="min">1860</span>
-                <span class="max">2022</span>
-                <input type="range" min="1860" , max="2022" , value="2022" , step="1"
-                    class="year-slider"></input>
-        </div>
-        <h3>*Points of Interest are not filtered by the date slider</h3>
-    </div>
+				<!-- ui slider element -->
+				<div id="ui-controls" class="bg-light text-secondary font-weight-bold">
+					<label><span class="min">1860</span>
+						<span class="max">2022</span>
+						<input type="range" min="1860", max="2022",
+						value="2022", step="10" class="year-slider" ></input>
+					</label>  
+				</div>
+				<!-- ui construction year date and property legend -->
+				<div id='year' class="text-light font-weight-bold">
+					<!-- <label><img src="graphics/dashed-line.png" width="20px" height="20px"> UK Property</br>-->
+					</br>
+						Year Display: <span>2022</span></label>
+				</div>
 				</div>
 			</div>
 				</section>
@@ -380,18 +366,10 @@
 		minZoom: 12,
 		maxZoom: 18,
 		maxBounds: L.latLngBounds([38.066, -84.547], [37.996, -84.454])
-		};
+	};
 
 	// create the Leaflet map
 	const map = L.map('map', options);
-    map.createPane('poiLayer');
-	map.getPane('poiLayer').style.zIndex = 500;
-    map.createPane('parcelLayer');
-	map.getPane('parcelLayer').style.zIndex = 400;
-	map.createPane('buildingLayer');
-	map.getPane('buildingLayer').style.zIndex = 350;
-    map.createPane('propertyLayer');
-	map.getPane('propertyLayer').style.zIndex = 300;
 
 	// mapbox API access Token
 	// mapbox API parameters
@@ -399,204 +377,231 @@
 	const yourName = 'jmfr236'
 	const yourMap = 'ckw4ellrb0dy714o11r7tg1wt'
 
-	// request a mapbox raster tile layer and add to map
+  	// request a mapbox raster tile layer and add to map
 	L.tileLayer(`https://api.mapbox.com/styles/v1/${yourName}/${yourMap}/tiles/256/{z}/{x}/{y}?access_token=${accessToken}`, {
 		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
 		maxZoom: 18
 	}).addTo(map);
-
-    // global variables
+	
+	// global variables
 	const currentYear = 2022;
 
-    const ukPropertyData = $.getJSON("../data/uk_property.geojson");
-    const ukBuildingData = $.getJSON("../data/uk_buildings.geojson");
-    const ukParcelData = $.getJSON("../data/uk_parcel_ownership.geojson");
-    const ukPoiData = $.getJSON("../data/photo_locations.geojson");
+	//add UK property boundary layer using JQuery getJSON() method
+	$.getJSON("data/uk_property.geojson", function (data) {
+		const property = L.geoJson(data, {
+			style: function (feature) {
+				return {
+					color: 'black',
+					weight: 1,
+					dashArray: '2',
+					fillColor: 'none',
+				};
+			},
+		}).addTo(map);
+	});
 
-    $.when(ukPropertyData, ukBuildingData, ukParcelData, ukPoiData).done(function (ukProperty, ukBuilding, ukParcel, ukPoi) {
-        console.log(ukProperty)
-        console.log(ukBuilding)
-        console.log(ukParcel)
-        console.log(ukPoi)
-        drawMap(ukProperty, ukBuilding, ukParcel, ukPoi)
-    })
+	//add UK buildings boundary layer using JQuery getJSON() method
+	var buildingLayer = $.getJSON("data/uk_buildings.geojson", function (data) {
+		const buildings = L.geoJson(data, {
+			style: function (feature) {
+				return {
+					color: 'gray',
+					weight: 1,
+					fillColor: 'black',
+				};
+			},
+		}).addTo(map);
+	});
 
-    // draw geoJson layers, call createSliderUI() and updateMap() functions
-    function drawMap(ukProperty, ukBuilding, ukParcel, ukPoi) {
-        console.log(ukProperty, ukBuilding, ukParcel, ukPoi);
+	//add UK POI layer using JQuery getJSON() method
+	var poiLayer = $.getJSON("data/photo_locations.geojson", function (data) {
+		const poi = L.geoJson(data, {
+			style: function(feature) {
+				return {
+					color: "red"
+				};
+			},
+			pointToLayer: function (feature, latlng) {
+				return L.circleMarker(latlng, {
+					radius: 3,
+					fillColor: 'red',
+					fillOpacity: 1, 
+					weight: 1,
+				});
+			},
+			onEachFeature: function (feature, layer) {
+				layer.bindTooltip(layer.feature.properties.HistoricDescription);
+			}
+		}).addTo(map);
+	});
 
-        // set parcel layer style and add to map
-        const parcelLayer = L.geoJson(ukParcel, {
-            style: function (feature) {
-                return {
-                    color: '#20282e',
-                    weight: 1,
-                    opacity: .5,
-                    fillOpacity: .75,
-                    fillColor: "#1E8AFF",
-                    pane: 'parcelLayer'
-                };
-            },
-        }).addTo(map);
+	// add UK parcels layer using JQuery getJSON() method
+	var parcelLayer = $.getJSON("data/uk_parcel_ownership.geojson", function (parcels) {
+		console.log(parcels);
+	
+		// call drawMap() function
+		drawMap(parcels); 
+	});
 
-        // set building layer style and add to map
-        const buildingLayer = L.geoJson(ukBuilding, {
-            style: function(feature) {
-                return {
-                    color: '#778899',
-                    weight: .5,
-                    fillColor: 'black',
-                    fillOpacity: .4,
-                    pane: 'buildingLayer'
-                }
-            }
-        }).addTo(map);
+	// draw building geoJson layer, call createSliderUI() and updateMap() functions
+	function drawMap(parcels) {
+		console.log(parcels);
+		
+		// set building layer style and add to map
+		const dataLayer = L.geoJson(parcels, {
+			style: function (feature) {
+				return {
+				color: '#20282e',
+				weight: 1,
+				opacity: 0,
+				fillOpacity: 0,
+				fillColor: "#1f78b4",
+				};
+			},
+		}).addTo(map); 
 
-        // set property layer style and add to map
-        const propertyLayer = L.geoJson(ukProperty, {
-            style: function(feature) {
-                return {
-                    color: '#778899',
-                    weight: .5,
-                    fillColor: 'black',
-                    fillOpacity:.1,
-                    //dashArray: '2',
-                    pane: 'propertyLayer'
-                }
-            }
-        }).addTo(map);
+	/* selection menu - will work on if time allows - struggle with UI slider and dropdown so thought 
+	doing a selection menu might be simpler
+		const athleticLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		const campusLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		const greekLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		const housingLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		const medicalLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		const otherLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		const transportationLayer = L.geoJson(parcels, dataLayer).addTo(map);
+		var buildingLayers = {
+			"<span class='layer=title'>Athletics</span>": athleticLayer,
+			"<span class='layer=title'>Campus</span>": campusLayer,
+			"<span class='layer=title'>Greek Life</span>": greekLayer,
+			"<span class='layer=title'>Housing</span>": housingLayer,
+			"<span class='layer=title'>Medical</span>": medicalLayer,
+			"<span class='layer=title'>Other</span>": otherLayer,
+			"<span class='layer=title'>Transportation</span>": transportationLayer,
+		}
+		var layerSelection = L.control.layers(null, buildingLayers, {
+			collapsed: false
+		}).addTo(map);
+	*/
 
-        // set point of interest layer style and add to map
-        const poiLayer = L.geoJson(ukPoi, {
-            style: function (feature) {
-                return {
-                    color: "#DA9517",
-                    opacity: .9,
-                    weight: 2,
-                    pane:'poiLayer'
-                };
-            },
-            pointToLayer: function (feature, latlng) {
-                return L.circleMarker(latlng, {
-                    radius: 3.5,
-                    fillColor: '#EEB902',
-                    fillOpacity: .8,
-                    weight: 1,
-                });
-            },
-            onEachFeature: function (feature, layer) {
-                var props = layer.feature.properties;
+		// create slider - call createSliderUI() function
+		createSliderUI(dataLayer);
 
-                // bind tooltip to feature
-                layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" +
-                `<h2><b>${props["SiteName"]}</br><img src ="../images/comparison/${props['SiteID']}.1.jpg"/></b></h2>` + "</div>",
-                    {
-                        direction: 'right',
-						permanent: false,
-						sticky: true,
-						offset: [10, 0],
-						align: 'center',
+		// call updateMap() function 
+		updateMap(dataLayer, currentYear);
+
+		// call updateYear() function when slider changed
+		updateYear(dataLayer, currentYear);
+
+		//filterByAttribute(dataLayer);
+    }
+
+    function updateMap(dataLayer, currentYear) {
+    	// loop through each county layer to update the color 
+		dataLayer.eachLayer(function (layer) {
+
+			const props = layer.feature.properties;
+			currentYear = Number(currentYear); 
+			yearBuilt = Number(props["Year_Date"]);
+			// console.log(currentYear)
+
+			if (yearBuilt <= currentYear) {
+				
+				layer.setStyle({
 						opacity: 1,
-						className: 'leaflet-tooltip-own'
-                    }
-                );
+						fillOpacity: 1
+					})
 
-                layer.on('click', function () {
-                    updateImageSlider(props['SiteID']);
-                })
-            },
-        }).addTo(map);
+						layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" + 
+						`<b><u>Deed Information</b></u><br/>
+						<p><b>Grantor: </b> ${props['Grantor']}<br/>
+						<b>Deed Book: </b>${props['DB']}, p. ${props['DB_PG']}<br/>
+						<b>Deed Date: </b> ${props['Deed_Date']}<br/>
+						<b>Original Deed Address: </b> ${props['Deed_Alternate_Name']}<br/><br/>
+						<small>PVA Number: ${props['PVANUM']}<br/>
+						PVA Address: ${props['ADDRESS']}</p>` + "</div>",
+				{
+					direction: 'right',
+					permanent: false,
+					sticky: true,
+					offset: [10, 0],
+					align: 'center',
+					opacity: 1,
+					className: 'leaflet-tooltip-own' 
+				});
 
-        // call updateMap() function 
-        updateMap(parcelLayer, currentYear);
+				layer.on("mouseover", function () {
+							layer.bringToFront();
+							layer.setStyle({
+								color: "yellow",
+								weight: 2,
+								opacity: 1,
+								fillOpacity: .25
+							});
+						});
 
-        // call updateYear() function when slider changed
-        updateYear(parcelLayer, currentYear);
-    };
+				layer.on("mouseout", function () {
+							layer.bringToBack();
+							layer.setStyle({
+								color: '#20282e',
+								weight: 1,	
+								fillOpacity: .25,							
+								fillColor: "#1f78b4"
+							});
+						});
+				} else {
+					layer.setStyle({
+						opacity: 0,
+						fillOpacity: 0
+					})
 
-    function updateMap(parcelLayer, currentYear) {
-        // loop through each county layer to update the color 
-        parcelLayer.eachLayer(function (layer) {
-            const props = layer.feature.properties;
-            currentYear = Number(currentYear);
-            yearBuilt = Number(props["Year_Date"]);
-            // console.log(currentYear)
+					layer.unbindTooltip()
 
-            if (yearBuilt <= currentYear) {
+					layer.on("mouseover", function(){
+						layer.setStyle({
+						opacity: 0,
+						fillOpacity: 0
+						})
+					})
 
-                layer.setStyle({
-                    color: '#20282e',
-                    weight: 1,
-                    opacity: .5,
-                    fillOpacity: .75,
-                    fillColor: "#1E8AFF",
-                });
+					layer.on("mouseout", function(){
+						layer.setStyle({
+						opacity: 0,
+						fillOpacity: 0
+						})
+					})
+				}
+			})
+	}; // end updateMap()
 
-                layer.bindTooltip("<div style='background:white; padding: 10px 5px 5px 5px'>" +
-                    `<h2><b><u>Deed Information</b></u></h2>
-                    <p><b>Grantor: </b> ${props['Grantor']}<br/>
-                    <b>Deed Book: </b>${props['DB']}, p. ${props['DB_PG']}<br/>
-                    <b>Deed Date: </b> ${props['Deed_Date']}<br/>
-                    <b>Original Deed Address: </b> ${props['Deed_Alternate_Name']}<br/><br/>
-                    <small>PVA Number: ${props['PVANUM']}<br/>
-                    PVA Address: ${props['ADDRESS']}</p>` + "</div>",
-                        {
-                            direction: 'right',
-                            permanent: false,
-                            sticky: true,
-                            offset: [10, 0],
-                            align: 'center',
-                            opacity: 1,
-                            className: 'leaflet-tooltip-own'
-                        });
+	// Add slider to the map
+	function createSliderUI(dataLayer) {
+      // create Leaflet control for the slider
+		const sliderControl = L.control({ 
+			position: 'bottomleft'
+		});
 
-                layer.on("mouseover", function () {
-                    layer.bringToFront();
-                    layer.setStyle({
-                        color: "yellow",
-                        weight: 2,
-                        opacity: 1,
-                        fillOpacity: .5,
-                    });
-                });
+      // when added to the map
+		sliderControl.onAdd = function(map) {
 
-                layer.on("mouseout", function () {
-                    layer.bringToBack();
-                    layer.setStyle({
-                        color: '#20282e',
-                        weight: 1,
-                        opacity: .5,
-                        fillOpacity: .75,
-                        fillColor: "#1E8AFF"
-                    });
-                });
-            } else {
-                layer.setStyle({
-                    opacity: 0,
-                    fillOpacity: 0
-                });
+			// select an existing DOM element with an id of "ui-controls"
+			const slider = L.DomUtil.get("ui-controls");
 
-                layer.unbindTooltip()
+			// disable scrolling of map while using controls
+			L.DomEvent.disableScrollPropagation(slider);
 
-                layer.on("mouseover", function () {
-                    layer.setStyle({
-                        opacity: 0,
-                        fillOpacity: 0
-                    })
-                })
+			// disable click events while using controls
+			L.DomEvent.disableClickPropagation(slider);
 
-                layer.on("mouseout", function () {
-                    layer.setStyle({
-                        opacity: 0,
-                        fillOpacity: 0
-                    });
-                });
-            };
-        })
-    }; // end updateMap()
+			// return the slider from the onAdd method
+			return slider;
+		}
 
-    // add legend and year display showing the year selected
-	function updateYear(parcelLayer, currentYear) {
+    	// add the control to the map
+		sliderControl.addTo(map);
+	} // end createSliderUI()
+	
+	// add legend and year display showing the year selected
+	function updateYear(dataLayer, currentYear) {
 		// create leaflet control for year and legend display
 		var yearControl = L.control({
 			position: 'bottomleft'
@@ -620,31 +625,92 @@
 		}
 
 		// add the control to the map
-		yearControl.addTo(map);
+		yearControl.addTo(map); 
 
-		// select the form element
+      // select the form element
 		$(".year-slider")
-			.on("input change", function () { // when user changes
+        	.on("input change", function() { // when user changes
 				const currentYear = $(this).val(); // update the year
 				$('#year label span').html(currentYear); // update the map with current timestamp
-				updateMap(parcelLayer, currentYear); // update timestamp in legend heading
+				updateMap(dataLayer, currentYear); // update timestamp in legend heading
 			});
 	} // end updateYear()
 
-    function updateImageSlider(imageId) {
-        console.log(imageId)
+	/*function filterByAttribute(dataLayer) {
+		// array to hold select options
 
-        $('#myModal').modal('show');
+		// dataLayer.getLayers()
+		var uniqueTypes = [];
+		
+		// loop through all features and push unique types to array
+		dataLayer.eachLayer(function (maint) {
+			const props = maint.feature.properties
+			if (!uniqueTypes.includes(props.GIS_MAPB_9)) {
+				uniqueTypes.push(props.GIS_MAPB_9);
+			}
+		});
 
-        new SliderBar({
-            el: "#image-compare",
-            beforeImg: `../images/comparison/${imageId}.1.jpg`,
-            afterImg: `../images/comparison/${imageId}.2.jpg`,
-            //width: "90%",
-            height: "75%",
-            line: false
-        });
-    }
+		// sort strings alphabetically
+		uniqueTypes.sort();
+
+		// add an all facilities to the beginning
+		uniqueTypes.unshift('All Building Types');
+		// console.log(maint.GIS_MAPB_9)
+
+		// select all the options (that don't exist yet)
+		d3.select('#ui-menu .dropdown-menu').selectAll('a')
+		.data(uniqueTypes) // use array as data
+		.join('a') // append a new option element for each data item
+		.text(d => {
+			return d // use the item as text
+		})
+		.attr('value', d => {
+			return d // use the time as value attribute
+		})
+		.attr('href', '#')
+		.classed('dropdown-item', true)
+		.on('click', onchange);  // when the user clicks call onchange function
+
+		function onchange() {
+			// get the currently selected value
+			let val = d3.select(this).attr('value');
+
+			dataLayer.eachLayer(function (maint) {
+				const props = maint.feature.properties
+				if (val != props.GIS_MAPB_9) {
+					maint.setStyle({
+						stroke: false,
+						fill: false
+					})
+
+				} else {
+					maint.setStyle({
+						stroke: true,
+						fill: true
+					})
+				}
+
+				if (val == 'All Building Types' ) { 
+
+				maint.setStyle({
+					stroke: true,
+					fill: true
+					});
+				}
+
+
+			d3.select('#ui-menu > a').html(val);  // update the UI with current val
+		
+		// change the display property for each circle
+		// dataLayer.style('display', d => {
+		// if (val === 'All Building Types') return 'inline';
+		// if (d.GIS_MAPB_9 != val) return 'none';
+		// });
+		// d3.select('#ui-menu > a').html(val);  // update the UI with current val
+		})
+	}
+	}*/
+	
 	</script>
 </body>
 
